@@ -1,0 +1,57 @@
+@import '~@angular/material/theming';
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat-core();
+
+$purple: (
+    50 : #f0e6f8,
+    100 : #dac0ed,
+    200 : #c296e1,
+    300 : #aa6cd4,
+    400 : #974dcb,
+    500 : #852dc2,
+    600 : #7d28bc,
+    700 : #7222b4,
+    800 : #681cac,
+    900 : #55119f,
+    A100 : #e4cfff,
+    A200 : #c89cff,
+    A400 : #ac69ff,
+    A700 : #9d50ff,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #000000,
+        400 : #ffffff,
+        500 : #ffffff,
+        600 : #ffffff,
+        700 : #ffffff,
+        800 : #ffffff,
+        900 : #ffffff,
+        A100 : #000000,
+        A200 : #000000,
+        A400 : #000000,
+        A700 : #ffffff,
+    )
+);
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$purple-app-primary: mat-palette($purple);
+$purple-app-accent: mat-palette($purple, 500, 200, 900);
+
+// The warn palette is optional (defaults to red).
+$purple-app-warn: mat-palette($mat-red);
+
+// Create the theme object (a Sass map containing all of the palettes).
+$purple-app-theme: mat-light-theme($purple-app-primary, $purple-app-accent, $purple-app-warn);
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include angular-material-theme($purple-app-theme);

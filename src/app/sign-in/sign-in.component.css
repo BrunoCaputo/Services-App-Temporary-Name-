@@ -1,0 +1,29 @@
+.tiled-background {
+    display: block;
+    overflow: auto;
+    background-image: url("../../assets/images/background.png");
+    background-repeat: repeat;
+    background-position: center;
+}
+
+.center-card {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.mat-card-content p, .mat-card-content {
+    text-align: center;
+}
+
+.button-icon {
+    font-size: 18px;
+    margin-right: 10px;
+}
+
+.sign-in-card {
+    max-width: 400px;
+    padding: 40px;
+    margin: 20px;
+}

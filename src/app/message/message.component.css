@@ -1,0 +1,21 @@
+div p {
+    font-weight: normal !important;
+    font-size:18px;
+    text-align: center;
+    color:gray;
+    margin:10px 20%;
+}
+
+.center-message {
+    position: absolute;
+    width: 100%;
+    top: 50%;
+    margin-top: -50px;
+}
+
+.message-icon fa-icon {
+    display: block;
+    font-size: 50px;
+    text-align: center;
+    color:gray;
+}

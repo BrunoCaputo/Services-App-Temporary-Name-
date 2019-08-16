@@ -1,1 +1,27 @@
 /* You can add global styles to this file, and also import other style files */
+body {
+    margin: 0;
+}
+
+ul {
+    padding-inline-start: 24px !important;
+}
+
+ul li {
+    margin: 0 0 12px !important;
+}
+
+.bolder-text {
+    font-weight: bold !important;
+}
+
+.mat-dialog-container {
+    max-width: 70vw !important;
+}
+
+.icon-image img {
+    display: block;
+    margin: 16px auto !important;
+    width: 100px;
+    height: 100px !important;
+}

@@ -1,0 +1,24 @@
+<div class="tiled-background">
+  <div class="center-card">
+    <mat-card class="sign-in-card mat-typography">
+      <div class="icon-image">
+        <img mat-card-image src="assets/images/icon_128.png">
+      </div>
+      <mat-card-content>
+        <h1 class="bolder-text">Bem-vindo ao Opps!</h1>
+        <p>
+          Comece a utilizar o Opps com a Conta do Google para publicar ou acessar serviços gerais.
+        </p>
+      </mat-card-content>
+      <mat-card-actions align="center">
+        <button mat-raised-button color="accent">
+          <fa-icon [icon]="googleIcon" class="button-icon"></fa-icon>
+          Entrar com a Conta do Google
+        </button>
+      </mat-card-actions>
+      <mat-card-footer align="center">
+        <button mat-button color="accent" (click)="openDialog()">Ao entrar você concorda com a Licença do Opps.</button>
+      </mat-card-footer>
+    </mat-card>
+  </div>
+</div>
