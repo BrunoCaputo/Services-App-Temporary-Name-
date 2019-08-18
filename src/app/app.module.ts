@@ -1,18 +1,42 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { SignInComponent } from './sign-in/sign-in.component';
-import { AboutComponent } from './about/about.component';
-import { LicenseComponent } from './license/license.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import {
+  MatCardModule,
+  MatButtonModule,
+  MatInputModule,
+  MatFormFieldModule,
+  MatIconModule,
+  MatDialogModule,
+  MatProgressSpinnerModule,
+  MatSidenavModule,
+  MatListModule } from '@angular/material';
 
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatCardModule, MatButtonModule, MatDialogModule, MatProgressSpinnerModule } from '@angular/material';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireAuthModule, AngularFireAuth } from '@angular/fire/auth';
+import { AngularFirestoreModule, AngularFirestore } from '@angular/fire/firestore';
+
+import { environment } from './../environments/environment';
+
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
+
+import { AuthenticationService } from './core/authentication.service';
+import { AuthenticationGuard} from './core/authentication.guard';
+
+import { SignInComponent } from './sign-in/sign-in.component';
+import { AboutComponent } from './about/about.component';
+import { LicenseComponent } from './license/license.component';
 import { LoadingComponent } from './loading/loading.component';
 import { MessageComponent } from './message/message.component';
+import { HomeComponent } from './home/home.component';
+import { ServiceFormComponent } from './service-form/service-form.component';
+import { ExploreComponent } from './explore/explore.component';
+import { ServicesComponent } from './services/services.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +45,11 @@ import { MessageComponent } from './message/message.component';
     LicenseComponent,
     AboutComponent,
     LoadingComponent,
-    MessageComponent
+    MessageComponent,
+    HomeComponent,
+    ServiceFormComponent,
+    ExploreComponent,
+    ServicesComponent
   ],
   entryComponents: [
     AboutComponent,
@@ -31,13 +59,26 @@ import { MessageComponent } from './message/message.component';
     BrowserModule,
     AppRoutingModule,
     FontAwesomeModule,
+    AngularFireModule.initializeApp(environment.firebase, 'opps'),
+    AngularFireAuthModule,
+    AngularFirestoreModule,
     BrowserAnimationsModule,
     MatCardModule,
     MatButtonModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatIconModule,
     MatDialogModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatSidenavModule,
+    MatListModule
   ],
-  providers: [],
+  providers: [
+    AngularFireAuth,
+    AngularFirestore,
+    AuthenticationService,
+    AuthenticationGuard
+  ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

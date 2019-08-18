@@ -1,0 +1,45 @@
+<mat-list>
+    <mat-list-item>
+        <img src="../../assets/images/icon_32.png"/>
+        <h3>OPPS</h3>
+    </mat-list-item>
+    <mat-divider></mat-divider>
+</mat-list>
+<mat-sidenav-container class="sidenav-container mat-typography">
+    <mat-sidenav mode="side" opened disableClose>
+        <div layout="row" class="profile-section">
+            <div class="icon-image" [style.background-image]="'url(' + auth.user?.photoURL + ')'"></div>
+            <p class="display-name">{{auth.user?.name}}</p>
+        </div>
+        <mat-nav-list>
+            <mat-divider></mat-divider>
+            <h3 mat-subheader>Principal</h3>
+            <a mat-list-item routerLink="explore" routerLinkActive="active">
+                <mat-icon class="material-icons-outlined">explore</mat-icon>
+                Explorar
+                <mat-icon class="material-icons-outlined right-icon">keyboard_arrow_right</mat-icon>
+            </a>
+            <a mat-list-item routerLink="services" routerLinkActive="active">
+                <mat-icon class="material-icons-outlined">work_outline</mat-icon>
+                Meus Serviços
+                <mat-icon class="material-icons-outlined right-icon">keyboard_arrow_right</mat-icon>
+            </a>
+            <mat-divider></mat-divider>
+            <h3 mat-subheader>Conta</h3>
+            <a mat-list-item (click)="openAboutDialog()">
+                <mat-icon class="material-icons-outlined">info</mat-icon>
+                Sobre
+            </a>
+            <a mat-list-item (click)="openLicenseDialog()">
+                <mat-icon class="material-icons-outlined">description</mat-icon>
+                Licença
+            </a>
+            <mat-divider></mat-divider>
+            <a mat-list-item (click)="auth.signOutAccount()">Sair</a>
+            <a mat-list-item class="red-text" (click)="auth.deleteAccount()">Apagar Conta</a>
+        </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <router-outlet></router-outlet>
+    </mat-sidenav-content>
+</mat-sidenav-container>

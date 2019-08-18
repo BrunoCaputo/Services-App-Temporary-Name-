@@ -1,22 +1,24 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { faGoogle } from '@fortawesome/free-brands-svg-icons';
 
+import { AboutComponent } from '../about/about.component'
 import { LicenseComponent } from '../license/license.component'
 
 import { AuthenticationService } from '../core/authentication.service';
 
 @Component({
-  selector: 'app-sign-in',
-  templateUrl: './sign-in.component.html',
-  styleUrls: ['./sign-in.component.css']
+  selector: 'app-home',
+  templateUrl: './home.component.html',
+  styleUrls: ['./home.component.css']
 })
-export class SignInComponent implements OnInit {
-  googleIcon = faGoogle;
-
+export class HomeComponent implements OnInit {
   constructor(public auth: AuthenticationService, public dialog: MatDialog) {}
 
-  ngOnInit() {}
+  ngOnInit() { }
+
+  openAboutDialog() {
+    this.dialog.open(AboutComponent);
+  }
 
   openLicenseDialog() {
     this.dialog.open(LicenseComponent);

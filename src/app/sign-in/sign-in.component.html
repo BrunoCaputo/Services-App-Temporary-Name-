@@ -11,13 +11,13 @@
         </p>
       </mat-card-content>
       <mat-card-actions align="center">
-        <button mat-raised-button color="accent">
+        <button mat-raised-button color="accent" (click)="auth.signInAccount()">
           <fa-icon [icon]="googleIcon" class="button-icon"></fa-icon>
           Entrar com a Conta do Google
         </button>
       </mat-card-actions>
       <mat-card-footer align="center">
-        <button mat-button color="accent" (click)="openDialog()">Ao entrar você concorda com a Licença do Opps.</button>
+        <button mat-button color="accent" (click)="openLicenseDialog()">Ao entrar você concorda com a Licença do Opps.</button>
       </mat-card-footer>
     </mat-card>
   </div>

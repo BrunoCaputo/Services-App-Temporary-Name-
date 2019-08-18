@@ -1,9 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 
-import { IconDefinition } from '@fortawesome/fontawesome-svg-core'
-
 @Component({
-  selector: 'message',
+  selector: 'app-message',
   templateUrl: './message.component.html',
   styleUrls: ['./message.component.css']
 })
@@ -12,7 +10,7 @@ export class MessageComponent implements OnInit {
   text: String;
   
   @Input()
-  icon: IconDefinition;
+  icon: String;
   
   constructor() {}
 

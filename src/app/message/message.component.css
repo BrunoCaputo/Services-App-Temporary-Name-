@@ -13,9 +13,9 @@ div p {
     margin-top: -50px;
 }
 
-.message-icon fa-icon {
-    display: block;
-    font-size: 50px;
-    text-align: center;
+.icon-container mat-icon {
+    display: table;
+    margin: 0px auto;
+    font-size: 60px;
     color:gray;
 }

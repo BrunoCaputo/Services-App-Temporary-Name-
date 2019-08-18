@@ -19,9 +19,43 @@ ul li {
     max-width: 70vw !important;
 }
 
+.icon-image {
+    border-radius: 50%;
+    background-color: lightgray;
+    background-size: 100px;
+    width: 100px;
+    height: 100px;
+    margin: 10px auto;
+}
+
 .icon-image img {
     display: block;
     margin: 16px auto !important;
     width: 100px;
     height: 100px !important;
+}
+
+.header {
+    display: flex;
+    background-color: white;
+    border-bottom: solid 1px rgba(0, 0, 0, 0.12);
+    box-sizing: border-box;
+}
+
+.header-text, .header .mat-dialog-actions {
+    margin: 16px;
+}
+
+.header-text h2 {
+    margin:0px;
+}
+
+.header .mat-dialog-actions {
+    align-self: center;
+    margin-left: auto !important;
+}
+
+.header .mat-dialog-actions button {
+    background-color: #852dc20d;
+    margin-left: 16px;
 }

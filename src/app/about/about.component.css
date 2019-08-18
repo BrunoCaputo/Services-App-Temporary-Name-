@@ -1,5 +1,6 @@
 div p, div h1 {
     text-align: center;
+    max-width: 60vh;
 }
 
 div h1 {
