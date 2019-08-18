@@ -37,6 +37,8 @@ import { HomeComponent } from './home/home.component';
 import { ServiceFormComponent } from './service-form/service-form.component';
 import { ExploreComponent } from './explore/explore.component';
 import { ServicesComponent } from './services/services.component';
+import { ErrorAlertComponent } from './error-alert/error-alert.component';
+import { ConfirmAlertComponent } from './confirm-alert/confirm-alert.component';
 
 @NgModule({
   declarations: [
@@ -49,11 +51,15 @@ import { ServicesComponent } from './services/services.component';
     HomeComponent,
     ServiceFormComponent,
     ExploreComponent,
-    ServicesComponent
+    ServicesComponent,
+    ErrorAlertComponent,
+    ConfirmAlertComponent
   ],
   entryComponents: [
     AboutComponent,
-    LicenseComponent
+    LicenseComponent,
+    ErrorAlertComponent,
+    ConfirmAlertComponent
   ],
   imports: [
     BrowserModule,

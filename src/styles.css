@@ -15,6 +15,14 @@ ul li {
     font-weight: bold !important;
 }
 
+.red-text {
+    color:#ff0055 !important;
+}
+
+.blue-text {
+    color: #0093ff !important;
+}
+
 .mat-dialog-container {
     max-width: 70vw !important;
 }
@@ -58,4 +66,31 @@ ul li {
 .header .mat-dialog-actions button {
     background-color: #852dc20d;
     margin-left: 16px;
+}
+
+.alert-title {
+    max-width: 60vh;
+    margin: auto 0 !important;
+}
+
+.alert-content p {
+    max-width: 60vh;
+    text-align: justify;
+    margin: 14px !important
+}
+
+.alert-row .mat-icon {
+    margin: auto 10px;
+    width: auto;
+    height: auto;
+    font-weight: normal !important;
+    font-size: 40px !important;;
+}
+
+.alert-row {
+    display: flex;
+}
+
+.top-space {
+    margin-top: 20px !important;
 }

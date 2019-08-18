@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 
 import { auth } from 'firebase/app';
 import { AngularFireAuth } from '@angular/fire/auth';
@@ -8,14 +9,21 @@ import { Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
 import { User } from '../utils/user';
+import { ErrorAlertComponent } from '../error-alert/error-alert.component';
+
+declare var gapi;
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
   user: Observable<User>;
+  loading: Observable<Boolean>;
   
   constructor(
       private angularAuth: AngularFireAuth,
-      private angularDatabase: AngularFirestore) {
+      private angularDatabase: AngularFirestore,
+      private dialog: MatDialog) {
+    this.loading = of(false);
+
     this.user = this.angularAuth.authState.pipe(
       switchMap(user => {
         if (user)
@@ -26,26 +34,81 @@ export class AuthenticationService {
     );
   }
 
-  signInAccount() {
-    const provider = new auth.GoogleAuthProvider();
+  async signInAccount() {
+    this.loading = of(true);
 
-    return this.angularAuth.auth.signInWithRedirect(provider).then(() => {
-      return this.angularAuth.auth.getRedirectResult().then((result) => {
-        this.setUserData(result.user);
+    try {
+      const googleAuth = gapi.auth2.getAuthInstance();
+      const googleUser = await googleAuth.signIn();
+
+      const googleToken = googleUser.getAuthResponse().id_token;
+      const googleCredential = auth.GoogleAuthProvider.credential(googleToken);
+
+      await this.angularAuth.auth.signInWithCredential(googleCredential).then((credential) => {
+        return this.setUserData(credential.user);
       });
-    });
+    }
+    catch(exception) {
+      this.dialog.open(ErrorAlertComponent, {
+        role: "alertdialog",
+        data: {
+          title: "Erro de autenticação",
+          message: "Ocorreu uma falha durante a tentativa de entrar na sua conta."
+        }
+      });
+    }
+    finally {
+      this.loading = of(false);
+    }
   }
   
-  signOutAccount() {
-    return this.angularAuth.auth.signOut();
+  async signOutAccount() {
+    this.loading = of(true);
+
+    try {
+      await this.angularAuth.auth.signOut();
+
+      const googleAuth = gapi.auth2.getAuthInstance();
+      await googleAuth.disconnect();
+    }
+    catch(exception) {
+      this.dialog.open(ErrorAlertComponent, {
+        role: "alertdialog",
+        data: {
+          title: "Erro de autenticação",
+          message: "Ocorreu uma falha durante a tentativa de sair da sua conta."
+        }
+      });
+    }
+    finally {
+      this.loading = of(false);
+    }
   }
 
-  deleteAccount() {
-    var user = this.angularAuth.auth.currentUser;
-    
-    this.removeUserData(user);
+  async deleteAccount() {
+    this.loading = of(true);
 
-    return user.delete();
+    try {
+      const user = this.angularAuth.auth.currentUser;
+      
+      await this.removeUserData(user);
+      await user.delete();
+
+      const googleAuth = gapi.auth2.getAuthInstance();
+      await googleAuth.disconnect();
+    }
+    catch(exception) {
+      this.dialog.open(ErrorAlertComponent, {
+        role: "alertdialog",
+        data: {
+          title: "Erro de autenticação",
+          message: "Ocorreu uma falha durante a tentativa de apagar a sua conta."
+        }
+      });
+    }
+    finally {
+      this.loading = of(false);
+    }
   }
   
   private setUserData(user) {

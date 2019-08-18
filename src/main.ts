@@ -6,9 +6,13 @@ import { environment } from './environments/environment';
 
 import 'hammerjs';
 
+declare var gapi;
+
 if (environment.production) {
   enableProdMode();
 }
+
+gapi.load('client:auth2', () => gapi.client.init(environment.google));
 
 platformBrowserDynamic().bootstrapModule(AppModule)
   .catch(err => console.error(err));

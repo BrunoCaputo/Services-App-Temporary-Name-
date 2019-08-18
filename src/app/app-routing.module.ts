@@ -20,6 +20,11 @@ const routes: Routes = [
     canActivate: [AuthenticationGuard],
     children: [
       {
+        path: '',
+        redirectTo: 'explore',
+        pathMatch: 'full' 
+      },
+      {
         path: 'explore',
         component: ExploreComponent
       },

@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 
 import { AboutComponent } from '../about/about.component'
 import { LicenseComponent } from '../license/license.component'
+import { ConfirmAlertComponent } from './../confirm-alert/confirm-alert.component';
 
 import { AuthenticationService } from '../core/authentication.service';
 
@@ -14,7 +15,7 @@ import { AuthenticationService } from '../core/authentication.service';
 export class HomeComponent implements OnInit {
   constructor(public auth: AuthenticationService, public dialog: MatDialog) {}
 
-  ngOnInit() { }
+  ngOnInit() {}
 
   openAboutDialog() {
     this.dialog.open(AboutComponent);
@@ -22,5 +23,17 @@ export class HomeComponent implements OnInit {
 
   openLicenseDialog() {
     this.dialog.open(LicenseComponent);
+  }
+
+  openDeleteAccountDialog() {
+    this.dialog.open(ConfirmAlertComponent, {
+      role: "alertdialog",
+      data: {
+        title: "Você tem certeza que deseja apagar sua conta?",
+        message: "Todos os seus dados serão excluídos permanentemente.",
+        actionName: "Apagar",
+        action: () => this.auth.deleteAccount()
+      }
+    });
   }
 }

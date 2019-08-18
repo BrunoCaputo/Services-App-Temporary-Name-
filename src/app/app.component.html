@@ -1,1 +1,7 @@
-<router-outlet></router-outlet>
+<div *ngIf="!(auth.loading | async); else loading">
+    <router-outlet></router-outlet>
+</div>
+
+<ng-template #loading>
+    <app-loading></app-loading>
+</ng-template>

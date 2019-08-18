@@ -8,18 +8,28 @@
 <mat-sidenav-container class="sidenav-container mat-typography">
     <mat-sidenav mode="side" opened disableClose>
         <div layout="row" class="profile-section">
-            <div class="icon-image" [style.background-image]="'url(' + auth.user?.photoURL + ')'"></div>
-            <p class="display-name">{{auth.user?.name}}</p>
+            <div *ngIf="(auth.user | async)?.photoURL as photoURL; else emptyPhoto">
+                <div class="icon-image" [style.background-image]="'url(' + photoURL + ')'"></div>
+            </div>
+            <ng-template #emptyPhoto>
+                <div class="icon-image"></div>
+            </ng-template>
+            <div *ngIf="(auth.user | async)?.name as name; else emptyName">
+                <p class="display-name">{{name}}</p>
+            </div>
+            <ng-template #emptyName>
+                <div class="blank-text"></div>
+            </ng-template>
         </div>
         <mat-nav-list>
             <mat-divider></mat-divider>
             <h3 mat-subheader>Principal</h3>
-            <a mat-list-item routerLink="explore" routerLinkActive="active">
+            <a mat-list-item routerLink="explore" routerLinkActive="active-list-item">
                 <mat-icon class="material-icons-outlined">explore</mat-icon>
                 Explorar
                 <mat-icon class="material-icons-outlined right-icon">keyboard_arrow_right</mat-icon>
             </a>
-            <a mat-list-item routerLink="services" routerLinkActive="active">
+            <a mat-list-item routerLink="services" routerLinkActive="active-list-item">
                 <mat-icon class="material-icons-outlined">work_outline</mat-icon>
                 Meus Serviços
                 <mat-icon class="material-icons-outlined right-icon">keyboard_arrow_right</mat-icon>
@@ -36,7 +46,7 @@
             </a>
             <mat-divider></mat-divider>
             <a mat-list-item (click)="auth.signOutAccount()">Sair</a>
-            <a mat-list-item class="red-text" (click)="auth.deleteAccount()">Apagar Conta</a>
+            <a mat-list-item class="red-text" (click)="openDeleteAccountDialog()">Apagar Conta</a>
         </mat-nav-list>
     </mat-sidenav>
     <mat-sidenav-content>
