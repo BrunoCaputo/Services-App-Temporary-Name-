@@ -1,4 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Location } from '@angular/common';
+import { ActivatedRoute } from '@angular/router';
 
 import { Service } from '../utils/service';
 
@@ -8,15 +10,19 @@ import { Service } from '../utils/service';
   styleUrls: ['./service-form.component.css']
 })
 export class ServiceFormComponent implements OnInit {
-  @Input()
   title: String;
-
-  @Input()
   subtitle: String;
 
   service = new Service();
+  
+  constructor(private location: Location, private route: ActivatedRoute) { }
 
-  constructor() { }
+  ngOnInit() {
+    this.title = this.route.snapshot.data.title;
+    this.subtitle = this.route.snapshot.data.subtitle;
+  }
 
-  ngOnInit() {}
+  cancelAction() {
+    this.location.back()
+  }
 }

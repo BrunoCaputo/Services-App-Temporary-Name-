@@ -1,7 +1,8 @@
+import { ServiceListComponent } from './service-list/service-list.component';
 import { SignInComponent } from './sign-in/sign-in.component';
 import { HomeComponent } from './home/home.component';
 import { ExploreComponent } from './explore/explore.component';
-import { ServicesComponent } from './services/services.component';
+import { ServiceContainerComponent } from './service-container/service-container.component';
 import { ServiceFormComponent } from './service-form/service-form.component';
 
 import { AuthenticationGuard } from './core/authentication.guard';
@@ -18,11 +19,12 @@ const routes: Routes = [
     path: 'home',
     component: HomeComponent,
     canActivate: [AuthenticationGuard],
+    canActivateChild: [AuthenticationGuard],
     children: [
       {
         path: '',
         redirectTo: 'explore',
-        pathMatch: 'full' 
+        pathMatch: 'full'
       },
       {
         path: 'explore',
@@ -30,15 +32,40 @@ const routes: Routes = [
       },
       {
         path: 'services',
-        component: ServicesComponent,
+        component: ServiceContainerComponent,
         children: [
           {
-            path: 'service-form',
-            component: ServiceFormComponent
+            path: '',
+            redirectTo: 'list',
+            pathMatch: 'prefix'
+          },
+          {
+            path: 'list',
+            component: ServiceListComponent
+          },
+          {
+            path: 'new',
+            component: ServiceFormComponent,
+            data: {
+              title: "Novo Serviço",
+              subtitle: "Adicione um novo serviço prestado por você",
+            }
+          },
+          {
+            path: 'edit/:id',
+            component: ServiceFormComponent,
+            data: {
+              title: "Editar Serviço",
+              subtitle: "Edite o serviço prestado por você",
+            }
           }
         ]
       }
     ]
+  },
+  {
+    path: "**",
+    redirectTo: "home"
   }
 ];
 

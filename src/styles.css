@@ -64,8 +64,8 @@ ul li {
 }
 
 .header .mat-dialog-actions button {
-    background-color: #852dc20d;
-    margin-left: 16px;
+    background-color: #f9f4fc;
+    margin-left: 8px !important;
 }
 
 .alert-title {

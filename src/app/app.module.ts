@@ -36,9 +36,10 @@ import { MessageComponent } from './message/message.component';
 import { HomeComponent } from './home/home.component';
 import { ServiceFormComponent } from './service-form/service-form.component';
 import { ExploreComponent } from './explore/explore.component';
-import { ServicesComponent } from './services/services.component';
+import { ServiceContainerComponent } from './service-container/service-container.component';
 import { ErrorAlertComponent } from './error-alert/error-alert.component';
 import { ConfirmAlertComponent } from './confirm-alert/confirm-alert.component';
+import { ServiceListComponent } from './service-list/service-list.component';
 
 @NgModule({
   declarations: [
@@ -51,9 +52,10 @@ import { ConfirmAlertComponent } from './confirm-alert/confirm-alert.component';
     HomeComponent,
     ServiceFormComponent,
     ExploreComponent,
-    ServicesComponent,
+    ServiceContainerComponent,
     ErrorAlertComponent,
-    ConfirmAlertComponent
+    ConfirmAlertComponent,
+    ServiceListComponent
   ],
   entryComponents: [
     AboutComponent,

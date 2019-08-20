@@ -13,4 +13,8 @@ export class AuthenticationGuard implements CanActivate {
   canActivate(next, state): Observable<boolean> {
     return this.auth.user.pipe(take(1), map(user => !!user));
   }
+
+  canActivateChild(next, state): Observable<boolean> {
+    return this.canActivate(next, state);
+  }
 }
