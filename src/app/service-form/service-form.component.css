@@ -1,0 +1,23 @@
+form {
+    height: 100%;
+}
+
+.form-container {
+    display: flex;
+    flex-direction: column;
+    padding:16px;
+}
+
+.form-container > * {
+    width: 100%;
+}
+
+::ng-deep
+.mat-form-field-appearance-outline .mat-form-field-outline {
+    background-color: white !important;
+}
+
+::ng-deep
+.mat-form-field-appearance-outline .mat-form-field-outline-thick {
+    color: #852dc2;
+}

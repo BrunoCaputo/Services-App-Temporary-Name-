@@ -1,0 +1,11 @@
+.card-container {
+    max-width: 400px;
+}
+
+.profile-icon {
+    border-radius: 50%;
+    background-color: lightgray;
+    background-size: 40px;
+    width: 40px;
+    height: 40px;
+}

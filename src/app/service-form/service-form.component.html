@@ -1,28 +1,41 @@
-<div class="mat-typography">
-    <div layout="row" class="header">
-        <div flex="" layout="column" class="header-text">
-            <h2>{{title}}</h2>
-            <h4>{{subtitle}}</h4>
+<form [formGroup]="serviceForm"  autocomplete="off" (ngSubmit)="addService(serviceForm.value)">
+    <div class="mat-typography" layout="column" class="parent-container">
+        <div layout="row" class="header">
+            <div flex="" layout="column" class="header-text">
+                <h2>{{title}}</h2>
+                <h4>{{subtitle}}</h4>
+            </div>
+            <mat-dialog-actions flex="" align="right">
+                <button mat-button color="accent" (click)="onCancel()">Cancelar</button>
+                <button mat-button color="accent" type="submit">Salvar</button>
+            </mat-dialog-actions>
         </div>
-        <mat-dialog-actions flex="" align="right">
-            <button mat-button color="accent" (click)="cancelAction()">Cancelar</button>
-            <button mat-button color="accent" type="submit">Salvar</button>
-        </mat-dialog-actions>
+
+        <div class="scroll-container">
+            <div class="form-container">
+                <mat-form-field appearance="outline">
+                    <mat-label>Nome</mat-label>
+                    <input matInput formControlName="name" required>
+                    <mat-error *ngIf="hasError('name', 'required')">Nome de serviço inválido.</mat-error>
+                    <mat-error *ngIf="hasError('name', 'maxlength')">O nome do serviço deve conter no máximo 60 caracteres.</mat-error>
+                </mat-form-field>
+                
+                <mat-form-field appearance="outline">
+                    <mat-label>Descrição</mat-label>
+                    <textarea matInput rows="10" formControlName="description" required></textarea>
+                    <mat-error *ngIf="hasError('description', 'required')">Descrição de serviço inválida.</mat-error>
+                    <mat-error *ngIf="hasError('description', 'maxlength')">A descrição do serviço deve conter no máximo 1000 caracteres.</mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Telefone</mat-label>
+                    <input matInput class="mono-font" placeholder="(  )      -    " formControlName="phone" [textMask]="{mask: phoneMask, placeholderChar: placeholderMask}" required>
+                    <mat-error *ngIf="hasError('phone', 'required')">Telefone de contato inválido.</mat-error>
+                    <mat-error *ngIf="hasError('phone', 'pattern')">Telefone de contato inválido.</mat-error>
+                </mat-form-field>
+
+                <mat-checkbox id="useEmail" formControlName="useEmail">Compartilhar e-mail</mat-checkbox>
+            </div>
+        </div>
     </div>
-
-    <!--mat-form-field>
-        <input matInput placeholder="Nome" id="name"name="name" [(ngModel)]="service.name">
-    </mat-form-field>
-    
-    <mat-form-field>
-        <textarea matInput placeholder="Descrição" id="description" name="description" [(ngModel)]="service.description"></textarea>
-    </mat-form-field>
-
-    <mat-form-field>
-        <input matInput placeholder="Telefone" id="telephone" name="telephone" [(ngModel)]="service.telephone">
-    </mat-form-field>
-
-    <mat-form-field>
-        <mat-checkbox id="useEmail" name="useEmail" [(ngModel)]="service.useEmail">Compartilhar e-mail</mat-checkbox>
-    </mat-form-field-->
-</div>
+</form>

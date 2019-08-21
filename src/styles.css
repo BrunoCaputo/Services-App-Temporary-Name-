@@ -94,3 +94,19 @@ ul li {
 .top-space {
     margin-top: 20px !important;
 }
+
+.mono-font {
+    font-family: monospace;
+}
+
+.parent-container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.scroll-container {
+    overflow-x: hidden;
+    overflow-y: auto;
+    flex: 1;
+}

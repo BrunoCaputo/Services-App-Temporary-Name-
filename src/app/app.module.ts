@@ -1,5 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -19,6 +21,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule, AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestoreModule, AngularFirestore } from '@angular/fire/firestore';
+
+import { TextMaskModule } from 'angular2-text-mask';
 
 import { environment } from './../environments/environment';
 
@@ -40,6 +44,7 @@ import { ServiceContainerComponent } from './service-container/service-container
 import { ErrorAlertComponent } from './error-alert/error-alert.component';
 import { ConfirmAlertComponent } from './confirm-alert/confirm-alert.component';
 import { ServiceListComponent } from './service-list/service-list.component';
+import { ServiceCardComponent } from './service-card/service-card.component';
 
 @NgModule({
   declarations: [
@@ -55,7 +60,8 @@ import { ServiceListComponent } from './service-list/service-list.component';
     ServiceContainerComponent,
     ErrorAlertComponent,
     ConfirmAlertComponent,
-    ServiceListComponent
+    ServiceListComponent,
+    ServiceCardComponent
   ],
   entryComponents: [
     AboutComponent,
@@ -67,9 +73,13 @@ import { ServiceListComponent } from './service-list/service-list.component';
     BrowserModule,
     AppRoutingModule,
     FontAwesomeModule,
+    ReactiveFormsModule,
+    FormsModule,
+    MatCheckboxModule,
     AngularFireModule.initializeApp(environment.firebase, 'opps'),
     AngularFireAuthModule,
     AngularFirestoreModule,
+    TextMaskModule,
     BrowserAnimationsModule,
     MatCardModule,
     MatButtonModule,

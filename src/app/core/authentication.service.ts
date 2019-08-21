@@ -112,17 +112,12 @@ export class AuthenticationService {
   }
   
   private setUserData(user) {
-    const documentReference: AngularFirestoreDocument<any>
+    const data = new User(user.uid, user.displayName, user.email, user.photoURL);
+    
+    const document: AngularFirestoreDocument<any>
       = this.angularDatabase.doc(`users/${user.uid}`);
     
-    const data: User = {
-      id: user.uid,
-      name: user.displayName,
-      email: user.email,
-      photoURL: user.photoURL
-    };
-    
-    return documentReference.set(data, { merge: true });
+    return document.set(data.getData(), { merge: true });
   }
 
   private removeUserData(user) {
