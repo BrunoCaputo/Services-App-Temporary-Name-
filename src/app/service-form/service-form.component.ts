@@ -4,8 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material';
 
-import { Subscription } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
+import { switchMap, map } from 'rxjs/operators';
 
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 
@@ -31,11 +30,8 @@ export class ServiceFormComponent implements OnInit {
 
   placeholderMask = '\u2000';
 
-  userSubscription: Subscription;
-  serviceSubscription: Subscription;
-
-  userID?: String;
-  serviceID?: String;
+  userID: String;
+  serviceID: String;
   
   constructor(
     private location: Location,
@@ -55,34 +51,46 @@ export class ServiceFormComponent implements OnInit {
       useEmail: new FormControl(false)
     });
     
-    this.userSubscription = this.auth.user.subscribe((user) => {
+    this.auth.user.pipe(switchMap((user) => {
       this.userID = user.id;
-    });
 
-    this.serviceSubscription = this.route.params.pipe(switchMap((params) => {
-      const serviceID = params.id;
-      return this.angularDatabase.doc<Service>(`users/${this.userID}/services/${serviceID}`).valueChanges();
-    })).subscribe((service) => {
-      if (service) {
-        this.serviceID = service.id;
+      console.log(this.userID);
 
-        const name = this.serviceForm.controls["name"] as FormControl;
-        const description = this.serviceForm.controls["description"] as FormControl;
-        const phone = this.serviceForm.controls["phone"] as FormControl;
-        const useEmail = this.serviceForm.controls["useEmail"] as FormControl;
+      return this.route.params.pipe(switchMap((params) => {
+        this.serviceID = params.id;
 
-        name.setValue(service.name);
-        description.setValue(service.description);
-        phone.setValue(service.phone);
-        useEmail.setValue(service.useEmail);
-      }
-    });
+        console.log(this.serviceID);
+
+        return this.angularDatabase.doc<Service>(`users/${this.userID}/services/${this.serviceID}`).get();
+      }));
+    })).pipe(map((document) => {
+        if (document.exists) {
+          const data = document.data;
+          console.log(data);
+
+          const name = this.serviceForm.controls["name"] as FormControl;
+          const description = this.serviceForm.controls["description"] as FormControl;
+          const phone = this.serviceForm.controls["phone"] as FormControl;
+          const useEmail = this.serviceForm.controls["useEmail"] as FormControl;
+
+          name.setValue(data['name']);
+          description.setValue(data['description']);
+          phone.setValue(data['phone']);
+          useEmail.setValue(data['useEmail']);
+        }
+        else {
+          this.dialog.open(ErrorAlertComponent, {
+            role: "alertdialog",
+            data: {
+              title: "Erro de acesso",
+              message: "Ocorreu uma falha durante a tentativa de editar o serviço."
+            }
+          });
+        }
+    }));
   }
 
-  ngOnDestroy() {
-    this.userSubscription.unsubscribe();
-    this.serviceSubscription.unsubscribe();
-  }
+  ngOnDestroy() {}
 
   hasError = (controlName: string, errorName: string) => {
     return this.serviceForm.controls[controlName].hasError(errorName);

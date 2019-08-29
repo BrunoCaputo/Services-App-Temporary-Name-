@@ -1,11 +1,29 @@
 .card-container {
-    max-width: 400px;
+    margin: 16px;
 }
 
-.profile-icon {
-    border-radius: 50%;
-    background-color: lightgray;
-    background-size: 40px;
-    width: 40px;
-    height: 40px;
+.mat-card-actions button {
+    background-color: #f9f4fc;
+    width: 100%;
+    margin: 0px;
+    margin-top: 8px;
+}
+
+.mat-card-actions button mat-icon, .mat-card-header button mat-icon {
+    color: #852dc2 !important;
+}
+
+.mat-card-actions button mat-icon {
+    margin-right: 10px;
+}
+
+::ng-deep
+.mat-card-header-text {
+    width:100%;
+    margin: 0px !important;
+}
+
+::ng-deep
+.mat-card-header .mat-card-title {
+    margin: 12px auto !important;
 }

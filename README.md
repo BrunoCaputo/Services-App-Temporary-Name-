@@ -1,5 +1,5 @@
 # Opps (Open Platform for Publishing Services)
-A web application to connect users to people who provide general services.
+A web application to connect users to people who provide generic services.
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.2.1.
 

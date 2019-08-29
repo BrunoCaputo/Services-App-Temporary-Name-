@@ -14,7 +14,9 @@ import {
   MatDialogModule,
   MatProgressSpinnerModule,
   MatSidenavModule,
-  MatListModule } from '@angular/material';
+  MatListModule,
+  MatTooltipModule,
+  MatMenuModule } from '@angular/material';
 
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
@@ -89,7 +91,9 @@ import { ServiceCardComponent } from './service-card/service-card.component';
     MatDialogModule,
     MatProgressSpinnerModule,
     MatSidenavModule,
-    MatListModule
+    MatListModule,
+    MatTooltipModule,
+    MatMenuModule
   ],
   providers: [
     AngularFireAuth,
