@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { auth } from 'firebase/app';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
+import { AngularFireFunctions } from '@angular/fire/functions';
 
 import { Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
@@ -21,6 +22,7 @@ export class AuthenticationService {
   constructor(
       private angularAuth: AngularFireAuth,
       private angularDatabase: AngularFirestore,
+      private angularFunctions: AngularFireFunctions,
       private dialog: MatDialog) {
     this.loading = of(false);
 
@@ -89,12 +91,18 @@ export class AuthenticationService {
     this.loading = of(true);
 
     try {
+      const googleAuth = gapi.auth2.getAuthInstance();
+      const googleUser = await googleAuth.currentUser.get();
+      const googleToken = googleUser.getAuthResponse().id_token;
+      const googleCredential = auth.GoogleAuthProvider.credential(googleToken);
+      
       const user = this.angularAuth.auth.currentUser;
       
-      await this.removeUserData(user);
-      await user.delete();
+      await user.reauthenticateWithCredential(googleCredential);
 
-      const googleAuth = gapi.auth2.getAuthInstance();
+      this.removeUserData(user);
+
+      await user.delete();
       await googleAuth.disconnect();
     }
     catch(exception) {
@@ -121,6 +129,7 @@ export class AuthenticationService {
   }
 
   private removeUserData(user) {
-    return this.angularDatabase.doc(`users/${user.uid}`).delete();
+    const recursiveDelete = this.angularFunctions.httpsCallable('recursiveDelete');
+    recursiveDelete({ path: `users/${user.uid}` });
   }
 }

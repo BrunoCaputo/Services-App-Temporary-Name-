@@ -3,14 +3,9 @@ div p {
     font-size:18px;
     text-align: center;
     color:gray;
-    margin:10px 20%;
-}
-
-.center-message {
-    position: absolute;
-    width: 100%;
-    top: 50%;
-    margin-top: -50px;
+    margin: 0px auto;
+    padding: 5px 10px;
+    max-width: 300px;
 }
 
 .icon-container mat-icon {

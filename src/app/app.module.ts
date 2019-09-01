@@ -23,6 +23,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule, AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestoreModule, AngularFirestore } from '@angular/fire/firestore';
+import { AngularFireFunctionsModule, AngularFireFunctions } from '@angular/fire/functions';
 
 import { TextMaskModule } from 'angular2-text-mask';
 
@@ -81,6 +82,7 @@ import { ServiceCardComponent } from './service-card/service-card.component';
     AngularFireModule.initializeApp(environment.firebase, 'opps'),
     AngularFireAuthModule,
     AngularFirestoreModule,
+    AngularFireFunctionsModule,
     TextMaskModule,
     BrowserAnimationsModule,
     MatCardModule,
@@ -98,6 +100,7 @@ import { ServiceCardComponent } from './service-card/service-card.component';
   providers: [
     AngularFireAuth,
     AngularFirestore,
+    AngularFireFunctions,
     AuthenticationService,
     AuthenticationGuard
   ],

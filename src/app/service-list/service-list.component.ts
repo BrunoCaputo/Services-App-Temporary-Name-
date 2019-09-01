@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Observable} from 'rxjs';
+import { Observable, of, Subscription} from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 
 import { AngularFirestore } from '@angular/fire/firestore';
@@ -18,11 +18,20 @@ export class ServiceListComponent implements OnInit {
   user: User;
   services: Observable<Service[]>;
 
+  serviceSubscription: Subscription;
+
+  status: Observable<Integer>;
+
+  emptyMessage = 'Nenhum serviço adicionado';
+  emptyIcon = 'work_outline';
+
   constructor(
     private auth: AuthenticationService,
     private database: AngularFirestore) {}
   
   ngOnInit() {
+    this.status = of(-1);
+
     this.services = this.auth.user.pipe(switchMap((user) => {
       this.user = user;
       
@@ -48,5 +57,14 @@ export class ServiceListComponent implements OnInit {
         return services;
       }));
     }));
+
+
+    this.serviceSubscription = this.services.subscribe((services) => {
+      this.status = of(services.length > 0);
+    });
+  }
+
+  ngOnDestroy() {
+    this.serviceSubscription.unsubscribe();
   }
 }

@@ -3,6 +3,10 @@ body {
     margin: 0;
 }
 
+html, body, .fill {
+  height: 100%;
+}
+
 ul {
     padding-inline-start: 24px !important;
 }
@@ -109,4 +113,15 @@ ul li {
     overflow-x: hidden;
     overflow-y: auto;
     flex: 1;
+}
+
+.list-container {
+    width: 100%;
+}
+
+.center {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

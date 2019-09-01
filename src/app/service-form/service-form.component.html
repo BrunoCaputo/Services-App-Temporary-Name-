@@ -1,4 +1,4 @@
-<form [formGroup]="serviceForm"  autocomplete="off" (ngSubmit)="addService(serviceForm.value)">
+<form [formGroup]="serviceForm" novalidate autocomplete="off" (ngSubmit)="addService(serviceForm.value)">
     <div class="mat-typography" layout="column" class="parent-container">
         <div layout="row" class="header">
             <div flex="" layout="column" class="header-text">
@@ -6,12 +6,12 @@
                 <h4>{{subtitle}}</h4>
             </div>
             <mat-dialog-actions flex="" align="right">
-                <button mat-button color="accent" (click)="onCancel()">Cancelar</button>
+                <button mat-button color="accent" type="button" (click)="onCancel()">Cancelar</button>
                 <button mat-button color="accent" type="submit">Salvar</button>
             </mat-dialog-actions>
         </div>
 
-        <div class="scroll-container">
+        <div class="scroll-container" *ngIf="!(isLoading | async); else loading">
             <div class="form-container">
                 <mat-form-field appearance="outline">
                     <mat-label>Nome</mat-label>
@@ -39,3 +39,7 @@
         </div>
     </div>
 </form>
+
+<ng-template #loading>
+    <app-loading class="fill"></app-loading>
+</ng-template>
