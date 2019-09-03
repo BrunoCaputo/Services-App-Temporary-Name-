@@ -9,7 +9,7 @@
         <app-loading *ngIf="(status | async) == -1"></app-loading>
         <app-message [text]="emptyMessage" [icon]="emptyIcon" *ngIf="(status | async) == 0"></app-message>
         <div *ngIf="(status | async) == 1" class="list-container">
-            <app-service-card *ngFor="let service of services | async" class="list-item" [user]="user" [service]="service"></app-service-card>
+            <app-service-card *ngFor="let [user, service] of services | async" class="list-item" [user]="user" [service]="service"></app-service-card>
         </div>
     </div>
 </div>

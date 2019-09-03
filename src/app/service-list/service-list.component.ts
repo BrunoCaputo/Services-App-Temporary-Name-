@@ -36,7 +36,8 @@ export class ServiceListComponent implements OnInit {
       this.user = user;
       
       return this.database.doc(`users/${this.user.id}`)
-      .collection('services').valueChanges().pipe(map((documents) => {
+      .collection('services', doc => doc.orderBy('name'))
+      .valueChanges().pipe(map((documents) => {
         const services = new Array<Service>();
 
         documents.forEach((document) => {
@@ -51,8 +52,6 @@ export class ServiceListComponent implements OnInit {
 
           services.push(service);
         });
-
-        services.sort((lhs, rhs) => lhs.name.localeCompare(rhs.name.toString()));
         
         return services;
       }));
