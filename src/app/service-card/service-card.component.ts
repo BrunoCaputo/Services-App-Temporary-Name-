@@ -3,6 +3,8 @@ import { MatTooltip, MatDialog } from '@angular/material';
 
 import { AngularFirestore } from '@angular/fire/firestore';
 
+import { formatPhone } from '../core/global';
+
 import { User } from '../utils/user';
 import { Service } from '../utils/service';
 import { ErrorAlertComponent } from '../error-alert/error-alert.component';
@@ -51,24 +53,20 @@ export class ServiceCardComponent implements OnInit {
     });
   }
 
-  copyContact(type: ContactType) {
+  formattedPhone() {
+    return formatPhone(this.service.phone);
+  }
+
+  showCopyContact(type: ContactType) {
     switch(type) {
       case ContactType.Email:
         this.emailTooltip.show();
         setTimeout(() => this.emailTooltip.hide(), 1500);
 
-        const email = this.service.useEmail ? this.user.email : '';
-
-        // Copy email to clipboard
-
         break;
       case ContactType.Phone:
         this.phoneTooltip.show();
         setTimeout(() => this.phoneTooltip.hide(), 1500);
-
-        const phone = this.service.phone;
-
-        // Copy phone to clipboard
 
         break;
     }

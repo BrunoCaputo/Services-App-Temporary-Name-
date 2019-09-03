@@ -10,6 +10,8 @@ import { switchMap } from 'rxjs/operators';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 
 import { Service } from '../utils/service';
+
+import { formatPhone, unformatPhone } from '../core/global';
 import { AuthenticationService } from '../core/authentication.service';
 import { ErrorAlertComponent } from '../error-alert/error-alert.component';
 
@@ -44,14 +46,6 @@ export class ServiceFormComponent implements OnInit {
     public auth: AuthenticationService,
     private angularDatabase: AngularFirestore,
     public dialog: MatDialog) { }
-
-  private formattedPhone(phone) {
-    return `(${ phone.substr(0, 2) }) ${ phone.substr(2, 5) }-${ phone.substr(7, 4) }`;
-  }
-
-  private unformattedPhone(phone) {
-    return phone.replace(/[^0-9]/g, '');
-  }
 
   ngOnInit() {
     this.isLoading = of(true);
@@ -106,7 +100,7 @@ export class ServiceFormComponent implements OnInit {
   
           name.setValue(service.name);
           description.setValue(service.description);
-          phone.setValue(this.formattedPhone(service.phone));
+          phone.setValue(formatPhone(service.phone));
           useEmail.setValue(service.useEmail);
         }
         else {
@@ -148,7 +142,7 @@ export class ServiceFormComponent implements OnInit {
         serviceID,
         value.name,
         value.description,
-        this.unformattedPhone(value.phone),
+        unformatPhone(value.phone),
         value.useEmail,
         this.userID
       );

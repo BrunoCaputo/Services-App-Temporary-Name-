@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Observable} from 'rxjs';
+import { Observable, Subscription, of} from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 
 import { AngularFirestore } from '@angular/fire/firestore';
@@ -18,15 +18,25 @@ export class ExploreComponent implements OnInit {
   user: User;
   services: Observable<Service[]>;
 
+  serviceSubscription: Subscription;
+
+  status: Observable<Number>;
+
+  emptyMessage = 'Nenhum serviço adicionado';
+  emptyIcon = 'work_outline';
+
   constructor(
     private auth: AuthenticationService,
     private database: AngularFirestore) {}
-
+  
   ngOnInit() {
-    /*this.services = this.auth.user.pipe(switchMap((user) => {
+    this.status = of(-1);
+
+    this.services = this.auth.user.pipe(switchMap((user) => {
       this.user = user;
       
-      return this.database.collection('users').valueChanges().pipe(map((documents) => {
+      return this.database.doc(`users/${this.user.id}`)
+      .collection('services').valueChanges().pipe(map((documents) => {
         const services = new Array<Service>();
 
         documents.forEach((document) => {
@@ -48,10 +58,13 @@ export class ExploreComponent implements OnInit {
       }));
     }));
 
-    this.database.collection('users').get().pipe(switchMap((documets) => {
-      documets.forEach((document) => {
-        document.get("services")
-      });
-    }));*/
+
+    this.serviceSubscription = this.services.subscribe((services) => {
+      this.status = of(services.length > 0 ? 1 : 0);
+    });
+  }
+
+  ngOnDestroy() {
+    this.serviceSubscription.unsubscribe();
   }
 }

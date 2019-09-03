@@ -27,6 +27,8 @@ import { AngularFireFunctionsModule, AngularFireFunctions } from '@angular/fire/
 
 import { TextMaskModule } from 'angular2-text-mask';
 
+import { ClipboardModule } from 'ngx-clipboard';
+
 import { environment } from './../environments/environment';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -84,6 +86,7 @@ import { ServiceCardComponent } from './service-card/service-card.component';
     AngularFirestoreModule,
     AngularFireFunctionsModule,
     TextMaskModule,
+    ClipboardModule,
     BrowserAnimationsModule,
     MatCardModule,
     MatButtonModule,

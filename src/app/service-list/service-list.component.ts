@@ -20,7 +20,7 @@ export class ServiceListComponent implements OnInit {
 
   serviceSubscription: Subscription;
 
-  status: Observable<Integer>;
+  status: Observable<Number>;
 
   emptyMessage = 'Nenhum serviço adicionado';
   emptyIcon = 'work_outline';
@@ -60,7 +60,7 @@ export class ServiceListComponent implements OnInit {
 
 
     this.serviceSubscription = this.services.subscribe((services) => {
-      this.status = of(services.length > 0);
+      this.status = of(services.length > 0 ? 1 : 0);
     });
   }
 

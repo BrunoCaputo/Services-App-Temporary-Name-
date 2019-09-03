@@ -1,6 +1,8 @@
 <mat-card class="card-container">
     <mat-card-header>
-        <mat-card-title>{{service.name}}</mat-card-title>
+        <mat-card-title>
+            <a mat-button routerLink="../edit/{{service.id}}">{{service.name}}</a>
+        </mat-card-title>
         <button mat-icon-button color="primary" [matMenuTriggerFor]="more_menu">
             <mat-icon class="material-icons-outlined red-text">more_vert</mat-icon>
         </button>
@@ -13,20 +15,22 @@
         <p>{{service.description}}</p>
     </mat-card-content>
     <mat-card-actions align="center">
-        <button mat-button color="primary" (click)="copyContact(0)"
+        <button mat-button color="primary" (click)="showCopyContact(0)"
             (mouseenter)="$event.stopImmediatePropagation()"
             (mouseleave)="$event.stopImmediatePropagation()"
             *ngIf="service.useEmail"
             matTooltip="E-mail copiado"
-            #emailTooltip="matTooltip">
+            #emailTooltip="matTooltip"
+            ngxClipboard [cbContent]="user.email">
             <mat-icon class="material-icons-outlined red-text">mail</mat-icon>
             E-mail
         </button>
-        <button mat-button color="primary" (click)="copyContact(1)"
+        <button mat-button color="primary" (click)="showCopyContact(1)"
             (mouseenter)="$event.stopImmediatePropagation()"
             (mouseleave)="$event.stopImmediatePropagation()"
             matTooltip="Telefone copiado"
-            #phoneTooltip="matTooltip">
+            #phoneTooltip="matTooltip"
+            ngxClipboard [cbContent]="formattedPhone()">
             <mat-icon class="material-icons-outlined red-text">phone</mat-icon>
             <span>Telefone</span>
         </button>
