@@ -103,6 +103,7 @@ export class AuthenticationService {
       this.removeUserData(user);
 
       await user.delete();
+      
       googleAuth.disconnect();
     }
     catch(exception) {
