@@ -26,6 +26,9 @@ export class ServiceCardComponent implements OnInit {
   @Input()
   service: Service;
 
+  @Input()
+  editable: Boolean;
+
   @ViewChild('emailTooltip', { static: false })
   emailTooltip: MatTooltip;
   

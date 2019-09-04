@@ -1,5 +1,5 @@
 <mat-card class="card-container">
-    <mat-card-header>
+    <mat-card-header *ngIf="editable">
         <mat-card-title>
             <a mat-button routerLink="../edit/{{service.id}}">{{service.name}}</a>
         </mat-card-title>
@@ -10,6 +10,16 @@
             <button mat-menu-item routerLink="../edit/{{service.id}}">Editar</button>
             <button mat-menu-item class="red-text" (click)="onDelete()">Apagar</button>
         </mat-menu>
+    </mat-card-header>
+    <mat-card-header *ngIf="!editable">
+        <div mat-card-avatar *ngIf="user.photoURL as photoURL; else emptyPhoto">
+            <div class="avatar-icon" [style.background-image]="'url(' + photoURL + ')'"></div>
+        </div>
+        <ng-template #emptyPhoto>
+            <div class="avatar-icon"></div>
+        </ng-template>
+        <mat-card-title>{{service.name}}</mat-card-title>
+        <mat-card-subtitle>{{user.name}}</mat-card-subtitle>
     </mat-card-header>
     <mat-card-content>
         <p>{{service.description}}</p>

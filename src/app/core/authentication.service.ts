@@ -71,7 +71,7 @@ export class AuthenticationService {
       await this.angularAuth.auth.signOut();
 
       const googleAuth = gapi.auth2.getAuthInstance();
-      await googleAuth.disconnect();
+      googleAuth.disconnect();
     }
     catch(exception) {
       this.dialog.open(ErrorAlertComponent, {
@@ -103,7 +103,7 @@ export class AuthenticationService {
       this.removeUserData(user);
 
       await user.delete();
-      await googleAuth.disconnect();
+      googleAuth.disconnect();
     }
     catch(exception) {
       this.dialog.open(ErrorAlertComponent, {

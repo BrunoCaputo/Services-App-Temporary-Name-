@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Observable, Subscription, of} from 'rxjs';
+import { Observable, Subscription, of, concat} from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 
-import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
+import { AngularFirestore } from '@angular/fire/firestore';
 
 import { AuthenticationService } from '../core/authentication.service';
 import { User } from './../utils/user';
@@ -15,12 +15,10 @@ import { Service } from '../utils/service';
   styleUrls: ['./explore.component.css']
 })
 export class ExploreComponent implements OnInit {
-  user: User;
-  users: Map<String, User>;
-
+  users: Observable<Map<String, Service>>;
   services: Observable<Service[]>;
   status: Observable<Number>;
-
+  
   serviceSubscription: Subscription;
 
   emptyMessage = 'Nenhum serviço disponível';
@@ -32,47 +30,55 @@ export class ExploreComponent implements OnInit {
   
   ngOnInit() {
     this.status = of(-1);
-
+    
     this.services = this.auth.user.pipe(switchMap((user) => {
-      this.user = user;
+      const userObservable = concat(
+        this.database.collection('users', doc => doc.where('id', '<', user.id)).valueChanges(),
+        this.database.collection('users', doc => doc.where('id', '>', user.id)).valueChanges());
 
-      return this.database.collection(
-        'users', doc => doc.where('id', '<', user.id).where('id', '>', user.id))
-        .valueChanges().pipe(map((documents) => {
-          const users = new Map<String, User>();
+      return userObservable.pipe(map((documents) => {
+        const users = new Map<String, User>();
+        
+        documents.forEach((document) => {
+          const user = new User();
+
+          user.id = document['id'];
+          user.name = document['name'];
+          user.email = document['email'];
+          user.photoURL = document['photoURL'];
           
-          documents.forEach((document) => {
-            const user = new User();
-  
-            user.id = document['id'];
-            user.name = document['name'];
-            user.email = document['email'];
-            user.photoURL = document['photoURL'];
-  
-            users.set(user.id, user);
-          });
+          users.set(user.id, user);
+        });
 
-          return users;
+        return users;
       })).pipe(switchMap((users) => {
-        return this.database.collectionGroup(
-          'services', doc => doc.where('id', '<', user.id).where('id', '>', user.id))
-          .valueChanges().pipe(map((documents) => {
-            const services = new Array<Service>();
+        this.users = of(users);
+
+        const serviceObservable = concat(
+          this.database.collectionGroup(
+            'services', doc => doc.where('providerID', '<', user.id)).valueChanges(),
+          this.database.collectionGroup(
+            'services', doc => doc.where('providerID', '>', user.id)).valueChanges());
+        
+        return serviceObservable.pipe(map((documents) => {
+          const services = new Array<Service>();
+
+          documents.forEach((document) => {
+            const service = new Service();
   
-            documents.forEach((document) => {
-              const service = new Service();
-    
-              service.id = document['id'];
-              service.name = document['name'];
-              service.description = document['description'];
-              service.phone = document['phone'];
-              service.useEmail = document['useEmail'];
-              service.providerID = document['providerID'];
-    
-              services.push(service);
-            });
-            
-            return services;
+            service.id = document['id'];
+            service.name = document['name'];
+            service.description = document['description'];
+            service.phone = document['phone'];
+            service.useEmail = document['useEmail'];
+            service.providerID = document['providerID'];
+
+            services.push(service);
+          });
+          
+          services.sort((lhs, rhs) => lhs.name.localeCompare(rhs.name.toString()));
+          
+          return services;
         }));
       }));
     }));
@@ -81,7 +87,7 @@ export class ExploreComponent implements OnInit {
       this.status = of(services.length > 0 ? 1 : 0);
     });
   }
-
+  
   ngOnDestroy() {
     this.serviceSubscription.unsubscribe();
   }
