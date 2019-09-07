@@ -27,10 +27,6 @@ ul li {
     color: #0093ff !important;
 }
 
-.mat-dialog-container {
-    max-width: 70vw !important;
-}
-
 .icon-image {
     border-radius: 50%;
     background-color: lightgray;
@@ -54,22 +50,27 @@ ul li {
     box-sizing: border-box;
 }
 
-.header-text, .header .mat-dialog-actions {
+.header-text {
     margin: 16px;
+    width:100%;
 }
 
 .header-text h2 {
     margin:0px;
 }
 
-.header .mat-dialog-actions {
-    align-self: center;
-    margin-left: auto !important;
+.header .header-action-button {
+    margin: auto 16px auto auto !important;
+    flex-wrap: wrap;
+    align-items: center;
 }
 
-.header .mat-dialog-actions button {
+.header .header-action-button button {
     background-color: #f9f4fc;
-    margin-left: 8px !important;
+    margin: 0px 0px 8px 8px !important;
+    width: 90px;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .alert-title {
@@ -79,7 +80,6 @@ ul li {
 
 .alert-content p {
     max-width: 60vh;
-    text-align: justify;
     margin: 14px !important
 }
 

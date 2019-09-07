@@ -22,7 +22,7 @@ export class ExploreComponent implements OnInit {
   serviceSubscription: Subscription;
 
   emptyMessage = 'Nenhum serviço disponível';
-  emptyIcon = 'work_outline';
+  emptyIcon = 'explore';
 
   constructor(
     private auth: AuthenticationService,

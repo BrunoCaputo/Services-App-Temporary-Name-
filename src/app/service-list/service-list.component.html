@@ -4,9 +4,9 @@
             <h2>Meus Serviços</h2>
             <h4>Gerencie os serviços prestados por você</h4>
         </div>
-        <mat-dialog-actions flex="" align="right">
+        <div flex="" align="right" class="header-action-button">
             <button mat-button color="accent" routerLink="../new">Novo</button>
-        </mat-dialog-actions>
+        </div>
     </div>
     <div class="scroll-container">
         <app-loading *ngIf="(status | async) == -1"></app-loading>

@@ -51,6 +51,10 @@
     margin: 4px 0 8px 0 !important;
 }
 
+.mat-card-content p {
+    text-align: justify;
+}
+
 .mat-card-avatar {
     margin-right: 12px;
 }

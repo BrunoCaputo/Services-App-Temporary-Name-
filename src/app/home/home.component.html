@@ -1,12 +1,15 @@
-<mat-list>
-    <mat-list-item>
-        <img src="../../assets/images/icon_32.png"/>
-        <h3>OPPS</h3>
-    </mat-list-item>
-    <mat-divider></mat-divider>
-</mat-list>
 <mat-sidenav-container class="sidenav-container mat-typography">
-    <mat-sidenav mode="side" opened disableClose>
+<mat-sidenav #sidenav [mode]="isMobile ? 'over' : 'side'" [opened]="!isMobile" [disableClose]="!isMobile" [autoFocus]="false">
+        <mat-list>
+            <mat-list-item>
+                <img src="../../assets/images/icon_32.png"/>
+                <h3 class="app-title">OPPS</h3>
+                <button mat-icon-button *ngIf="isMobile" color="primary" class="right-icon" (click)="sidenav.close()">
+                    <mat-icon class="material-icons-outlined">close</mat-icon>
+                </button>
+            </mat-list-item>
+            <mat-divider></mat-divider>
+        </mat-list>
         <div layout="row" class="profile-section">
             <div *ngIf="(auth.user | async)?.photoURL as photoURL; else emptyPhoto">
                 <div class="icon-image" [style.background-image]="'url(' + photoURL + ')'"></div>
@@ -24,23 +27,23 @@
         <mat-nav-list>
             <mat-divider></mat-divider>
             <h3 mat-subheader>Principal</h3>
-            <a mat-list-item routerLink="explore" routerLinkActive="active-list-item">
+            <a mat-list-item routerLink="explore" routerLinkActive="active-list-item" (click)="isMobile && sidenav.close()">
                 <mat-icon class="material-icons-outlined">explore</mat-icon>
                 Explorar
                 <mat-icon class="material-icons-outlined right-icon">keyboard_arrow_right</mat-icon>
             </a>
-            <a mat-list-item routerLink="services" routerLinkActive="active-list-item">
+            <a mat-list-item routerLink="services" routerLinkActive="active-list-item" (click)="isMobile && sidenav.close()">
                 <mat-icon class="material-icons-outlined">work_outline</mat-icon>
                 Meus Serviços
                 <mat-icon class="material-icons-outlined right-icon">keyboard_arrow_right</mat-icon>
             </a>
             <mat-divider></mat-divider>
             <h3 mat-subheader>Conta</h3>
-            <a mat-list-item (click)="openAboutDialog()">
+            <a mat-list-item (click)="openAboutDialog(); isMobile && sidenav.close();">
                 <mat-icon class="material-icons-outlined">info</mat-icon>
                 Sobre
             </a>
-            <a mat-list-item (click)="openLicenseDialog()">
+            <a mat-list-item (click)="openLicenseDialog(); isMobile && sidenav.close();">
                 <mat-icon class="material-icons-outlined">description</mat-icon>
                 Licença
             </a>
@@ -49,7 +52,14 @@
             <a mat-list-item class="red-text" (click)="openDeleteAccountDialog()">Apagar Conta</a>
         </mat-nav-list>
     </mat-sidenav>
-    <mat-sidenav-content>
-        <router-outlet></router-outlet>
+    <mat-sidenav-content class="nav-parent">
+        <div class="nav-header" *ngIf="isMobile">
+            <button mat-icon-button color="primary" (click)="sidenav.open()">
+                <mat-icon class="material-icons-outlined">menu</mat-icon>
+            </button>
+        </div>
+        <div class="nav-content">
+            <router-outlet></router-outlet>
+        </div>
     </mat-sidenav-content>
 </mat-sidenav-container>

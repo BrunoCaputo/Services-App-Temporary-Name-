@@ -1,4 +1,4 @@
-<div *ngIf="!(auth.loading | async); else loading">
+<div *ngIf="!(auth.loading | async) && !(isLoading | async); else loading">
     <router-outlet></router-outlet>
 </div>
 

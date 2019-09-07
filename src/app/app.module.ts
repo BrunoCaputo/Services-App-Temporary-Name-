@@ -28,6 +28,7 @@ import { AngularFireFunctionsModule, AngularFireFunctions } from '@angular/fire/
 import { TextMaskModule } from 'angular2-text-mask';
 
 import { ClipboardModule } from 'ngx-clipboard';
+import { DeviceDetectorModule } from 'ngx-device-detector';
 
 import { environment } from './../environments/environment';
 
@@ -87,6 +88,7 @@ import { ServiceCardComponent } from './service-card/service-card.component';
     AngularFireFunctionsModule,
     TextMaskModule,
     ClipboardModule,
+    DeviceDetectorModule.forRoot(),
     BrowserAnimationsModule,
     MatCardModule,
     MatButtonModule,
