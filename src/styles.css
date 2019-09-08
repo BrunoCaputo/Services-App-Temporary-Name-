@@ -51,18 +51,23 @@ ul li {
 }
 
 .header-text {
-    margin: 16px;
-    width:100%;
+    margin: 8px 16px;
 }
 
 .header-text h2 {
     margin:0px;
 }
 
+.header-text h4 {
+    margin-bottom:8px !important;
+}
+
 .header .header-action-button {
-    margin: auto 16px auto auto !important;
+    margin: 8px 16px 8px auto !important;
     flex-wrap: wrap;
     align-items: center;
+    justify-content: flex-end;
+    display: flex;
 }
 
 .header .header-action-button button {

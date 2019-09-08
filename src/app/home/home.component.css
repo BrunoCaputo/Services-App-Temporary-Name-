@@ -24,7 +24,7 @@
     color: gray;
 }
 
-.mat-nav-list a mat-icon, .mat-list-item img {
+.mat-nav-list a mat-icon {
     margin-right: 10px;
 }
 
@@ -85,6 +85,12 @@
     font-weight: bold;
     font-size:20px;
     margin-bottom: 0px;
+}
+
+.app-icon {
+    width: 32px;
+    height: 32px;
+    margin-right: 10px;
 }
 
 .nav-parent {
