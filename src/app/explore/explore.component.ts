@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Observable, Subscription, of, concat} from 'rxjs';
+import { Observable, Subscription, of } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 
 import { AngularFirestore } from '@angular/fire/firestore';
