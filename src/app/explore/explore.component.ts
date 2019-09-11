@@ -32,14 +32,11 @@ export class ExploreComponent implements OnInit {
     this.status = of(-1);
     
     this.services = this.auth.user.pipe(switchMap((user) => {
-      const userObservable = concat(
-        this.database.collection('users', doc => doc.where('id', '<', user.id)).valueChanges(),
-        this.database.collection('users', doc => doc.where('id', '>', user.id)).valueChanges());
-
-      return userObservable.pipe(map((documents) => {
+      return this.database.collection('users').valueChanges().pipe(map((documents) => {
         const users = new Map<String, User>();
         
-        documents.forEach((document) => {
+        documents.filter((document) => document['id'] != user.id)
+          .forEach((document) => {
           const user = new User();
 
           user.id = document['id'];
@@ -54,16 +51,11 @@ export class ExploreComponent implements OnInit {
       })).pipe(switchMap((users) => {
         this.users = of(users);
 
-        const serviceObservable = concat(
-          this.database.collectionGroup(
-            'services', doc => doc.where('providerID', '<', user.id)).valueChanges(),
-          this.database.collectionGroup(
-            'services', doc => doc.where('providerID', '>', user.id)).valueChanges());
-        
-        return serviceObservable.pipe(map((documents) => {
+        return this.database.collectionGroup('services').valueChanges().pipe(map((documents) => {
           const services = new Array<Service>();
 
-          documents.forEach((document) => {
+          documents.filter((document) => document['providerID'] != user.id)
+            .forEach((document) => {
             const service = new Service();
   
             service.id = document['id'];

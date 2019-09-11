@@ -31,29 +31,29 @@ export class ServiceCardComponent implements OnInit {
 
   @ViewChild('emailTooltip', { static: false })
   emailTooltip: MatTooltip;
-  
+
   @ViewChild('phoneTooltip', { static: false })
   phoneTooltip: MatTooltip;
-  
+
   constructor(
     private angularDatabase: AngularFirestore,
-    private dialog: MatDialog) {}
+    private dialog: MatDialog) { }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   onDelete() {
     this.angularDatabase
-        .doc(`users/${this.user.id}`)
-        .collection("services")
-        .doc(this.service.id.toString()).delete().catch(() => {
-      this.dialog.open(ErrorAlertComponent, {
-        role: "alertdialog",
-        data: {
-          title: "Erro de conexão",
-          message: "Ocorreu uma falha durante a tentativa de apagar o serviço."
-        }
+      .doc(`users/${this.user.id}`)
+      .collection("services")
+      .doc(this.service.id.toString()).delete().catch(() => {
+        this.dialog.open(ErrorAlertComponent, {
+          role: "alertdialog",
+          data: {
+            title: "Erro de conexão",
+            message: "Ocorreu uma falha durante a tentativa de apagar o serviço."
+          }
+        });
       });
-    });
   }
 
   formattedPhone() {
@@ -61,15 +61,19 @@ export class ServiceCardComponent implements OnInit {
   }
 
   showCopyContact(type: ContactType) {
-    switch(type) {
+    switch (type) {
       case ContactType.Email:
         this.emailTooltip.show();
         setTimeout(() => this.emailTooltip.hide(), 1500);
+
+        window.open('mailto:' + this.user.email, '_self');
 
         break;
       case ContactType.Phone:
         this.phoneTooltip.show();
         setTimeout(() => this.phoneTooltip.hide(), 1500);
+
+        window.open('tel:' + this.formattedPhone(), '_self');
 
         break;
     }
