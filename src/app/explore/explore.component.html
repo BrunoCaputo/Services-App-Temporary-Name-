@@ -1,15 +1,33 @@
 <div class="mat-typography" class="parent-container">
-    <div layout="row" class="header">
-        <div flex="" layout="column" class="header-text">
-            <h2>Explorar</h2>
-            <h4>Encontre os serviços gerais que você precisa</h4>
-        </div>
+  <div layout="row" class="header">
+    <div flex="" layout="column" class="header-text">
+      <h2>Explorar</h2>
+      <h4>Encontre os serviços gerais que você precisa</h4>
     </div>
-    <div class="scroll-container">
-        <app-loading *ngIf="(status | async) == -1"></app-loading>
-        <app-message [text]="emptyMessage" [icon]="emptyIcon" *ngIf="(status | async) == 0"></app-message>
-        <div *ngIf="(status | async) == 1" class="list-container">
-            <app-service-card *ngFor="let service of services | async" class="list-item" [user]="(users | async).get(service.providerID)" [service]="service" [editable]="false"></app-service-card>
-        </div>
+    <div id="searchbardiv">
+      <mat-search-bar
+        id="searchbar"
+        type="text"
+        [(ngModel)]="searchBar"
+      ></mat-search-bar>
     </div>
+  </div>
+
+  <div class="scroll-container">
+    <app-loading *ngIf="(status | async) == -1"></app-loading>
+    <app-message
+      [text]="emptyMessage"
+      [icon]="emptyIcon"
+      *ngIf="(status | async) == 0"
+    ></app-message>
+    <div *ngIf="(status | async) == 1" class="list-container">
+      <app-service-card
+        *ngFor="let service of services | async | filter: searchBar"
+        class="list-item"
+        [user]="(users | async).get(service.providerID)"
+        [service]="service"
+        [editable]="false"
+      ></app-service-card>
+    </div>
+  </div>
 </div>
