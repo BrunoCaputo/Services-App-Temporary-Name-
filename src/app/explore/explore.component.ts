@@ -15,10 +15,10 @@ import { Service } from '../utils/service';
   styleUrls: ['./explore.component.css']
 })
 export class ExploreComponent implements OnInit {
-  users: Observable<Map<String, Service>>;
+  users: Observable<Map<String, User>>;
   services: Observable<Service[]>;
   status: Observable<Number>;
-  searchBar: string;
+  searchBarText: String;
 
   serviceSubscription: Subscription;
 

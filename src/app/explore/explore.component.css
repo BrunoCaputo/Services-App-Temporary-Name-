@@ -1,8 +1,8 @@
-#searchbardiv {
+.search-bar-container {
   margin-left: auto !important;
 }
 
-#searchbar {
+.search-bar {
   margin-top: 40px !important;
   margin-right: 25px !important;
 }

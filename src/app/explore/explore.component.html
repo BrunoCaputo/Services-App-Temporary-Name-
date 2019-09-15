@@ -4,12 +4,8 @@
       <h2>Explorar</h2>
       <h4>Encontre os serviços gerais que você precisa</h4>
     </div>
-    <div id="searchbardiv">
-      <mat-search-bar
-        id="searchbar"
-        type="text"
-        [(ngModel)]="searchBar"
-      ></mat-search-bar>
+    <div flex="" align="right" class="search-bar-container">
+      <mat-search-bar class="search-bar" type="text" [(ngModel)]="searchBarText"></mat-search-bar>
     </div>
   </div>
 
@@ -22,7 +18,7 @@
     ></app-message>
     <div *ngIf="(status | async) == 1" class="list-container">
       <app-service-card
-        *ngFor="let service of services | async | filter: searchBar"
+        *ngFor="let service of services | async | filter: [users | async, searchBarText]"
         class="list-item"
         [user]="(users | async).get(service.providerID)"
         [service]="service"
