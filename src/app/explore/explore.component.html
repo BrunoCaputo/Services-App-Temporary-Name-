@@ -5,7 +5,8 @@
       <h4>Encontre os serviços gerais que você precisa</h4>
     </div>
     <div flex="" align="right" class="search-bar-container">
-      <mat-search-bar class="search-bar" type="text" [(ngModel)]="searchBarText"></mat-search-bar>
+      <mat-search-bar *ngIf="isMobile" class="search-bar-mobile" type="text" [(ngModel)]="searchBarText"></mat-search-bar>
+      <mat-search-bar *ngIf="!isMobile" class="search-bar" type="text" [(ngModel)]="searchBarText"></mat-search-bar>
     </div>
   </div>
 

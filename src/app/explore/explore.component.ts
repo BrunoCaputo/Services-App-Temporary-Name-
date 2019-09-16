@@ -8,6 +8,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { AuthenticationService } from '../core/authentication.service';
 import { User } from './../utils/user';
 import { Service } from '../utils/service';
+import { DeviceDetectorService } from 'ngx-device-detector';
 
 @Component({
   selector: 'app-explore',
@@ -19,6 +20,7 @@ export class ExploreComponent implements OnInit {
   services: Observable<Service[]>;
   status: Observable<Number>;
   searchBarText: String;
+  isMobile: Boolean;
 
   serviceSubscription: Subscription;
 
@@ -27,10 +29,12 @@ export class ExploreComponent implements OnInit {
 
   constructor(
     private auth: AuthenticationService,
-    private database: AngularFirestore
+    private database: AngularFirestore,
+    private deviceService: DeviceDetectorService
   ) {}
 
   ngOnInit() {
+    this.isMobile = this.deviceService.isMobile();
     this.status = of(-1);
 
     this.services = this.auth.user.pipe(

@@ -18,7 +18,7 @@ declare var gapi;
 export class AuthenticationService {
   user: Observable<User>;
   loading: Observable<Boolean>;
-  
+
   constructor(
       private angularAuth: AngularFireAuth,
       private angularDatabase: AngularFirestore,
@@ -28,10 +28,11 @@ export class AuthenticationService {
 
     this.user = this.angularAuth.authState.pipe(
       switchMap(user => {
-        if (user)
+        if (user) {
           return this.angularDatabase.doc<User>(`users/${user.uid}`).valueChanges();
-        else
+        } else {
           return of(null);
+        }
       })
     );
   }
@@ -49,21 +50,19 @@ export class AuthenticationService {
       await this.angularAuth.auth.signInWithCredential(googleCredential).then((credential) => {
         return this.setUserData(credential.user);
       });
-    }
-    catch(exception) {
+    } catch (exception) {
       this.dialog.open(ErrorAlertComponent, {
-        role: "alertdialog",
+        role: 'alertdialog',
         data: {
-          title: "Erro de autenticação",
-          message: "Ocorreu uma falha durante a tentativa de entrar na sua conta."
+          title: 'Erro de autenticação',
+          message: 'Ocorreu uma falha durante a tentativa de entrar na sua conta.'
         }
       });
-    }
-    finally {
+    } finally {
       this.loading = of(false);
     }
   }
-  
+
   async signOutAccount() {
     this.loading = of(true);
 
@@ -72,17 +71,15 @@ export class AuthenticationService {
 
       const googleAuth = gapi.auth2.getAuthInstance();
       googleAuth.disconnect();
-    }
-    catch(exception) {
+    } catch (exception) {
       this.dialog.open(ErrorAlertComponent, {
-        role: "alertdialog",
+        role: 'alertdialog',
         data: {
-          title: "Erro de autenticação",
-          message: "Ocorreu uma falha durante a tentativa de sair da sua conta."
+          title: 'Erro de autenticação',
+          message: 'Ocorreu uma falha durante a tentativa de sair da sua conta.'
         }
       });
-    }
-    finally {
+    } finally {
       this.loading = of(false);
     }
   }
@@ -95,42 +92,44 @@ export class AuthenticationService {
       const googleUser = await googleAuth.currentUser.get();
       const googleToken = googleUser.getAuthResponse().id_token;
       const googleCredential = auth.GoogleAuthProvider.credential(googleToken);
-      
+
       const user = this.angularAuth.auth.currentUser;
-      
+      const currentId = user.uid;
+      const currentUser = user;
+
       await user.reauthenticateWithCredential(googleCredential);
 
-      this.removeUserData(user);
+      await this.signOutAccount();
 
-      await user.delete();
-      
+      this.removeUserData(currentId);
+
+      await currentUser.delete();
+
       googleAuth.disconnect();
-    }
-    catch(exception) {
+    } catch (exception) {
       this.dialog.open(ErrorAlertComponent, {
-        role: "alertdialog",
+        role: 'alertdialog',
         data: {
-          title: "Erro de autenticação",
-          message: "Ocorreu uma falha durante a tentativa de apagar a sua conta."
+          title: 'Erro de autenticação',
+          message: 'Ocorreu uma falha durante a tentativa de apagar a sua conta.'
         }
       });
-    }
-    finally {
+    } finally {
       this.loading = of(false);
     }
   }
-  
+
   private setUserData(user) {
     const data = new User(user.uid, user.displayName, user.email, user.photoURL);
-    
+
     const document: AngularFirestoreDocument<any>
       = this.angularDatabase.doc(`users/${user.uid}`);
-    
+
     return document.set(data.getData(), { merge: true });
   }
 
-  private removeUserData(user) {
+  private removeUserData(id) {
     const recursiveDelete = this.angularFunctions.httpsCallable('recursiveDelete');
-    recursiveDelete({ path: `users/${user.uid}` });
+    recursiveDelete({ path: `users/${id}` });
   }
 }
