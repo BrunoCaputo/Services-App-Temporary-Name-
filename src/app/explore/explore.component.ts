@@ -27,6 +27,9 @@ export class ExploreComponent implements OnInit {
   emptyMessage = 'Nenhum serviço disponível';
   emptyIcon = 'explore';
 
+  emptySearchMessage = 'Nenhum serviço encontrado';
+  emptySearchIcon = 'search';
+
   constructor(
     private auth: AuthenticationService,
     private database: AngularFirestore,

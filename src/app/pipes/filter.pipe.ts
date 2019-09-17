@@ -10,7 +10,7 @@ import { Service } from '../utils/service';
 export class FilterPipe implements PipeTransform {
   transform(value: Service[], content: [Map<String, User>, String]): Service[] {
     const users = content[0];
-    const query = content[1] ? content[1].toLocaleLowerCase() : '';
+    const query = content[1] ? content[1].toLocaleLowerCase().trim() : '';
     
     if (query.length == 0)
       return value;
@@ -18,7 +18,7 @@ export class FilterPipe implements PipeTransform {
     const index = query.indexOf(':');
 
     const filter = index > 0 ? query.substr(0, index).trim() : '';
-    const text = index > 0 ? query.substr(index + 1) : query;
+    var text = index > 0 ? query.substr(index + 1).trim() : query;
 
     switch(filter) {
       case 'nome':
@@ -31,6 +31,9 @@ export class FilterPipe implements PipeTransform {
           return provider.name.toLocaleLowerCase().includes(text);
         });
       default:
+        if (filter !== 'tudo')
+          text = query;
+
         return value.filter((service) => {
           const provider = users.get(service.providerID);
 

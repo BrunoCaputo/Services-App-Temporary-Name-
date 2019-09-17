@@ -94,6 +94,7 @@ export class AuthenticationService {
       const googleCredential = auth.GoogleAuthProvider.credential(googleToken);
 
       const user = this.angularAuth.auth.currentUser;
+      
       const currentId = user.uid;
       const currentUser = user;
 

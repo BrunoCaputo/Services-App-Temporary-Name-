@@ -1,24 +1,28 @@
 .search-bar-container {
-  margin-left: auto !important;
+  margin-left: auto;
 }
 
 .search-bar {
-  margin-top: 40px !important;
-  margin-right: 25px !important;
+  margin-top: 40px;
+  margin-right: 25px;
 }
 
 .search-bar-mobile {
-  margin-top: -30px !important;
-  position: absolute !important;
-  margin-left: -40px !important;
+  margin-top: -30px;
+  position: absolute;
+  margin-left: -40px;
+}
+
+.empty-search-container {
+  height:100%;
 }
 
 ::ng-deep
-  mat-icon.mat-search_icon-search.mat-icon.notranslate.mat-ripple.material-icons.mat-icon-no-color {
+mat-icon.mat-search_icon-search.mat-icon.notranslate.mat-ripple.material-icons.mat-icon-no-color {
   color: #852dc2 !important;
 }
 
 ::ng-deep
-  mat-icon.mat-search_icon-close.mat-icon.notranslate.mat-ripple.material-icons.mat-icon-no-color {
+mat-icon.mat-search_icon-close.mat-icon.notranslate.mat-ripple.material-icons.mat-icon-no-color {
   color: #852dc2 !important;
 }
