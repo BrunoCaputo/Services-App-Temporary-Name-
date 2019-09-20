@@ -17,7 +17,8 @@ import {
   MatListModule,
   MatTooltipModule,
   MatMenuModule,
-  MatToolbarModule
+  MatToolbarModule,
+  MatBottomSheetModule
 } from '@angular/material';
 
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -61,6 +62,8 @@ import { ConfirmAlertComponent } from './confirm-alert/confirm-alert.component';
 import { ServiceListComponent } from './service-list/service-list.component';
 import { ServiceCardComponent } from './service-card/service-card.component';
 import { FilterPipe } from './pipes/filter.pipe';
+import { ExploreBottomSheetComponent } from './explore-bottom-sheet/explore-bottom-sheet.component';
+import { SearchFilterService } from './core/search-filter.service';
 
 @NgModule({
   declarations: [
@@ -78,13 +81,15 @@ import { FilterPipe } from './pipes/filter.pipe';
     ConfirmAlertComponent,
     ServiceListComponent,
     ServiceCardComponent,
-    FilterPipe
+    FilterPipe,
+    ExploreBottomSheetComponent
   ],
   entryComponents: [
     AboutComponent,
     LicenseComponent,
     ErrorAlertComponent,
-    ConfirmAlertComponent
+    ConfirmAlertComponent,
+    ExploreBottomSheetComponent
   ],
   imports: [
     BrowserModule,
@@ -113,14 +118,16 @@ import { FilterPipe } from './pipes/filter.pipe';
     MatListModule,
     MatTooltipModule,
     MatMenuModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatBottomSheetModule
   ],
   providers: [
     AngularFireAuth,
     AngularFirestore,
     AngularFireFunctions,
     AuthenticationService,
-    AuthenticationGuard
+    AuthenticationGuard,
+    SearchFilterService
   ],
   bootstrap: [AppComponent]
 })

@@ -9,6 +9,10 @@ import { AuthenticationService } from '../core/authentication.service';
 import { User } from './../utils/user';
 import { Service } from '../utils/service';
 import { DeviceDetectorService } from 'ngx-device-detector';
+import { MatBottomSheet } from '@angular/material';
+import { ExploreBottomSheetComponent } from '../explore-bottom-sheet/explore-bottom-sheet.component';
+import { SearchFilterService } from '../core/search-filter.service';
+import { stringify } from 'querystring';
 
 @Component({
   selector: 'app-explore',
@@ -19,7 +23,9 @@ export class ExploreComponent implements OnInit {
   users: Observable<Map<String, User>>;
   services: Observable<Service[]>;
   status: Observable<Number>;
-  searchBarText: String;
+  searchBarText = '';
+  searchPrefix: String = 'tudo';
+  searchItem: String;
   isMobile: Boolean;
 
   serviceSubscription: Subscription;
@@ -33,7 +39,9 @@ export class ExploreComponent implements OnInit {
   constructor(
     private auth: AuthenticationService,
     private database: AngularFirestore,
-    private deviceService: DeviceDetectorService
+    private deviceService: DeviceDetectorService,
+    private bottomSheet: MatBottomSheet,
+    private searchFilter: SearchFilterService
   ) {}
 
   ngOnInit() {
@@ -106,9 +114,19 @@ export class ExploreComponent implements OnInit {
     this.serviceSubscription = this.services.subscribe(services => {
       this.status = of(services.length > 0 ? 1 : 0);
     });
+
+    this.searchFilter.filtered.subscribe(filtered => {
+      console.log('Entrou' + filtered);
+      this.searchPrefix = filtered;
+      console.log(this.searchPrefix);
+    }, error => {});
   }
 
   ngOnDestroy() {
     this.serviceSubscription.unsubscribe();
+  }
+
+  openBottomSheet(): void {
+    this.bottomSheet.open(ExploreBottomSheetComponent);
   }
 }

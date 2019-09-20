@@ -1,0 +1,21 @@
+<h1 align="middle">Filtrar por:</h1>
+<mat-nav-list>
+  <a mat-list-item (click)="setFilter('tudo:')">
+    <span mat-line>Sem filtro</span>
+  </a>
+
+  <a mat-list-item (click)="setFilter('nome:')">
+    <span mat-line>Nome</span>
+    <span mat-line>Procure pelo nome do serviço</span>
+  </a>
+
+  <a mat-list-item (click)="setFilter('descrição:')">
+    <span mat-line>Descrição</span>
+    <span mat-line>Procure pela descrição do serviço</span>
+  </a>
+
+  <a mat-list-item (click)="setFilter('servidor:')">
+    <span mat-line>Autor</span>
+    <span mat-line>Procure pelo autor do serviço</span>
+  </a>
+</mat-nav-list>

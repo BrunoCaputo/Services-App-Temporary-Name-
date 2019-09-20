@@ -4,9 +4,35 @@
       <h2>Explorar</h2>
       <h4>Encontre os serviços gerais que você precisa</h4>
     </div>
-    <div flex="" align="right" class="search-bar-container">
-      <mat-search-bar *ngIf="isMobile" class="search-bar-mobile" type="text" [(ngModel)]="searchBarText"></mat-search-bar>
-      <mat-search-bar *ngIf="!isMobile" class="search-bar" type="text" [(ngModel)]="searchBarText"></mat-search-bar>
+    <div flex="" align="right" class="search-bar-container" layout="row">
+      <mat-search-bar
+        *ngIf="isMobile"
+        class="search-bar-mobile"
+        type="text"
+        [(ngModel)]="searchBarText"
+      ></mat-search-bar>
+      <button
+        mat-icon-button
+        *ngIf="isMobile"
+        class="filter-button-mobile"
+        (click)="openBottomSheet()"
+      >
+        <mat-icon fontSet="material-icons-outlined">filter_list</mat-icon>
+      </button>
+      <mat-search-bar
+        *ngIf="!isMobile"
+        class="search-bar"
+        type="text"
+        [(ngModel)]="searchBarText"
+      ></mat-search-bar>
+      <button
+        mat-icon-button
+        *ngIf="!isMobile"
+        class="filter-button"
+        (click)="openBottomSheet()"
+      >
+        <mat-icon fontSet="material-icons-outlined">filter_list</mat-icon>
+      </button>
     </div>
   </div>
 
@@ -18,7 +44,9 @@
       *ngIf="(status | async) == 0"
     ></app-message>
     <div *ngIf="(status | async) == 1" class="list-container">
-      <div class="vertical-fill" *ngIf="services | async | filter: [users | async, searchBarText]; let filteredList">
+      <div class="vertical-fill"
+        *ngIf= "services | async | filter: [users | async, searchItem];
+        let filteredList" >
         <app-message
           [text]="emptySearchMessage"
           [icon]="emptySearchIcon"
