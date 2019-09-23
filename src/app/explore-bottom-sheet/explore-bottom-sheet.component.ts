@@ -8,10 +8,14 @@ import { SearchFilterService } from '../core/search-filter.service';
   styleUrls: ['./explore-bottom-sheet.component.css']
 })
 export class ExploreBottomSheetComponent {
+  filter: String;
+
   constructor(
     private bottomSheetRef: MatBottomSheetRef<ExploreBottomSheetComponent>,
     private searchFilter: SearchFilterService
-  ) {}
+  ) {
+    this.filter = this.searchFilter.getFilter();
+  }
 
   setFilter(filter: string): void {
     this.searchFilter.setFitler(filter);

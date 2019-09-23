@@ -14,4 +14,8 @@ export class SearchFilterService {
     this.filter = filter;
     this.dataSource.next(this.filter);
   }
+
+  public getFilter(): String {
+    return this.filter;
+  }
 }
