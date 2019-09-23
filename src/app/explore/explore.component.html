@@ -10,6 +10,7 @@
         class="search-bar-mobile"
         type="text"
         [(ngModel)]="searchBarText"
+        (ngModelChange)="modelChanged($event)"
       ></mat-search-bar>
       <button
         mat-icon-button
@@ -24,6 +25,7 @@
         class="search-bar"
         type="text"
         [(ngModel)]="searchBarText"
+        (ngModelChange)="modelChanged($event)"
       ></mat-search-bar>
       <button
         mat-icon-button

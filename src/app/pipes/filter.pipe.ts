@@ -9,6 +9,10 @@ import { Service } from '../utils/service';
 })
 export class FilterPipe implements PipeTransform {
   transform(value: Service[], content: [Map<String, User>, String]): Service[] {
+    if (value === null) {
+      return null;
+    }
+
     const users = content[0];
     const query = content[1] ? content[1].toLocaleLowerCase().trim() : '';
 

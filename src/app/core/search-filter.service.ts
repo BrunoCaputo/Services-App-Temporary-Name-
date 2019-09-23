@@ -1,5 +1,4 @@
-import { Service } from './../utils/service';
-import { Observable, BehaviorSubject } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { Injectable } from '@angular/core';
 
 @Injectable({ providedIn: 'root' })
@@ -13,10 +12,6 @@ export class SearchFilterService {
 
   public setFitler(filter: String) {
     this.filter = filter;
-    console.log(this.filter);
-  }
-
-  public getFilter(): String {
-    return this.filter;
+    this.dataSource.next(this.filter);
   }
 }

@@ -116,9 +116,8 @@ export class ExploreComponent implements OnInit {
     });
 
     this.searchFilter.filtered.subscribe(filtered => {
-      console.log('Entrou' + filtered);
       this.searchPrefix = filtered;
-      console.log(this.searchPrefix);
+      this.searchItem = this.searchPrefix + this.searchBarText;
     }, error => {});
   }
 
@@ -128,5 +127,10 @@ export class ExploreComponent implements OnInit {
 
   openBottomSheet(): void {
     this.bottomSheet.open(ExploreBottomSheetComponent);
+  }
+
+  modelChanged(newValue: string) {
+    this.searchBarText = newValue;
+    this.searchItem = this.searchPrefix + this.searchBarText;
   }
 }
