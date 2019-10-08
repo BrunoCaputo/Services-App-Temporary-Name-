@@ -1,3 +1,6 @@
+/**
+ * Represents a model for all services.
+ */
 export class Service {
     constructor(
         public id?: String,
@@ -6,7 +9,7 @@ export class Service {
         public phone?: String,
         public useEmail?: Boolean,
         public providerID?: String) {}
-    
+
     getData(): object {
         const data = {
             id: this.id,

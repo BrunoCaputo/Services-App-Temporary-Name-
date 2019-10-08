@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { MatBottomSheetRef } from '@angular/material';
 import { SearchFilterService } from '../core/search-filter.service';
 
+/**
+ * Sets the search filter.
+ */
 @Component({
   selector: 'app-explore-bottom-sheet',
   templateUrl: './explore-bottom-sheet.component.html',
@@ -10,6 +13,11 @@ import { SearchFilterService } from '../core/search-filter.service';
 export class ExploreBottomSheetComponent {
   filter: String;
 
+  /**
+   * Default constructor.
+   * @param bottomSheetRef - Instance of MatBottomSheetRef<ExploreBottomSheetComponent>.
+   * @param searchFilter - Instance of SearchFilterService.
+   */
   constructor(
     private bottomSheetRef: MatBottomSheetRef<ExploreBottomSheetComponent>,
     private searchFilter: SearchFilterService
@@ -18,7 +26,7 @@ export class ExploreBottomSheetComponent {
   }
 
   setFilter(filter: string): void {
-    this.searchFilter.setFitler(filter);
+    this.searchFilter.setFilter(filter);
     this.bottomSheetRef.dismiss();
   }
 }

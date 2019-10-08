@@ -15,6 +15,9 @@ import { formatPhone, unformatPhone } from '../core/global';
 import { AuthenticationService } from '../core/authentication.service';
 import { ErrorAlertComponent } from '../error-alert/error-alert.component';
 
+/**
+ * Represents the form to add or edit a service.
+ */
 @Component({
   selector: 'app-service-form',
   templateUrl: './service-form.component.html',
@@ -25,6 +28,9 @@ export class ServiceFormComponent implements OnInit {
   subtitle: String;
   serviceForm: FormGroup;
 
+  /**
+   * Represents the mask to add the telephone.
+   */
   phoneMask = [
     '(', /\d/, /\d/, ')', ' ',
     /\d/, /\d/, /\d/, /\d/, /\d/, '-',
@@ -40,6 +46,14 @@ export class ServiceFormComponent implements OnInit {
 
   isLoading: Observable<Boolean>;
   
+  /**
+   * Default constructor.
+   * @param location - Instance of Location.
+   * @param route - Instance of ActivatedRoute.
+   * @param auth - Instance of AuthenticationService.
+   * @param angularDatabase - Instance of AngularFirestore.
+   * @param dialog - Instance of MatDialog.
+   */
   constructor(
     private location: Location,
     private route: ActivatedRoute,
@@ -47,6 +61,11 @@ export class ServiceFormComponent implements OnInit {
     private angularDatabase: AngularFirestore,
     public dialog: MatDialog) { }
 
+  /**
+   * Executes when the page is being loaded. If the service ID is empty, it will
+   * create a new service, otherwise it will edit said service. Changes are
+   * reflected on the database.
+   */
   ngOnInit() {
     this.isLoading = of(true);
 
@@ -127,6 +146,9 @@ export class ServiceFormComponent implements OnInit {
     return this.serviceForm.controls[controlName].hasError(errorName);
   }
   
+  /**
+   * Adds a service.
+   */
   addService(value) {
     if (this.serviceForm.valid) {
       this.location.back();
@@ -168,6 +190,9 @@ export class ServiceFormComponent implements OnInit {
     }
   }
 
+  /**
+   * Aborts the form.
+   */
   onCancel() {
     this.location.back();
   }

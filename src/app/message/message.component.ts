@@ -6,6 +6,9 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./message.component.css']
 })
 export class MessageComponent implements OnInit {
+  /**
+   * Represents an HTML parameter.
+   */
   @Input()
   text: String;
   

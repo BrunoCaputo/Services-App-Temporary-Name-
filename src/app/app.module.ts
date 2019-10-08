@@ -65,6 +65,10 @@ import { FilterPipe } from './pipes/filter.pipe';
 import { ExploreBottomSheetComponent } from './explore-bottom-sheet/explore-bottom-sheet.component';
 import { SearchFilterService } from './core/search-filter.service';
 
+/**
+ * Imports and declares all components in the application, otherwise Angular
+ * won't work.
+ */
 @NgModule({
   declarations: [
     AppComponent,

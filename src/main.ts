@@ -6,6 +6,9 @@ import { environment } from './environments/environment';
 
 import 'hammerjs';
 
+/**
+ * Loads Google Authentication API.
+ */
 declare var gapi;
 
 if (environment.production) {

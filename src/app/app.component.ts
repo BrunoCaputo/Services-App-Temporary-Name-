@@ -7,6 +7,9 @@ import { AngularFirestore } from '@angular/fire/firestore';
 
 import { AuthenticationService } from './core/authentication.service';
 
+/**
+ * Responsible for deciding to where the user will be routed.
+ */
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -17,11 +20,17 @@ export class AppComponent implements OnInit {
 
   isLoading: Observable<Boolean>;
 
+  /**
+   * Default constructor.
+   * @param auth - Instance of AuthenticationService.
+   * @param database - Instance of AngularFirestore.
+   * @param router - Router.
+   */
   constructor(
     public auth: AuthenticationService,
     public database: AngularFirestore,
     public router: Router) {}
-  
+
   ngOnInit() {
     this.isLoading = of(true);
 

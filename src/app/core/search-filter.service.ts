@@ -1,6 +1,9 @@
 import { BehaviorSubject } from 'rxjs';
 import { Injectable } from '@angular/core';
 
+/**
+ * Applies the selected filter to the search bar.
+ */
 @Injectable({ providedIn: 'root' })
 export class SearchFilterService {
 
@@ -10,7 +13,7 @@ export class SearchFilterService {
 
   constructor() {}
 
-  public setFitler(filter: String) {
+  public setFilter(filter: String) {
     this.filter = filter;
     this.dataSource.next(this.filter);
   }

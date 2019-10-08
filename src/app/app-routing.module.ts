@@ -10,6 +10,9 @@ import { AuthenticationGuard } from './core/authentication.guard';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
+/**
+ * Maps the routes for the application to follow.
+ */
 const routes: Routes = [
   {
     path: 'sign-in',

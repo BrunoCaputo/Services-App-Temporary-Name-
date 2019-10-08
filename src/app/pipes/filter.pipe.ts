@@ -3,6 +3,9 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { User } from '../utils/user';
 import { Service } from '../utils/service';
 
+/**
+ * Serves as a filter for the value being searched on the search bar.
+ */
 @Pipe({
   name: 'filter',
   pure: false
@@ -25,6 +28,7 @@ export class FilterPipe implements PipeTransform {
     const filter = index > 0 ? query.substr(0, index).trim() : '';
     let text = index > 0 ? query.substr(index + 1).trim() : query;
 
+    // Analyzes the current filter being applied on the search.
     switch (filter) {
       case 'nome':
         return value.filter((service) => service.name.toLocaleLowerCase().includes(text));

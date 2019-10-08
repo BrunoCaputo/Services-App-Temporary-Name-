@@ -14,6 +14,9 @@ import { ExploreBottomSheetComponent } from '../explore-bottom-sheet/explore-bot
 import { SearchFilterService } from '../core/search-filter.service';
 import { stringify } from 'querystring';
 
+/**
+ * Provides functionalities to explore the services of other users.
+ */
 @Component({
   selector: 'app-explore',
   templateUrl: './explore.component.html',
@@ -36,6 +39,14 @@ export class ExploreComponent implements OnInit {
   emptySearchMessage = 'Nenhum serviço encontrado';
   emptySearchIcon = 'search';
 
+  /**
+   * Creates a new instance of the ExploreComponent class.
+   * @param auth - Instance of AuthenticationService.
+   * @param database - Instance of AngularFirestore.
+   * @param deviceService - Instance of DeviceDetectorService.
+   * @param bottomSheet - In of MatBottomSheet.
+   * @param searchFilter - SearchFilterService.
+   */
   constructor(
     private auth: AuthenticationService,
     private database: AngularFirestore,
@@ -44,6 +55,9 @@ export class ExploreComponent implements OnInit {
     private searchFilter: SearchFilterService
   ) {}
 
+  /**
+   * Executes every time the page is loaded.
+   */
   ngOnInit() {
     this.isMobile = this.deviceService.isMobile();
     this.status = of(-1);
@@ -121,14 +135,23 @@ export class ExploreComponent implements OnInit {
     }, error => {});
   }
 
+  /**
+   * Called when exiting the component.
+   */
   ngOnDestroy() {
     this.serviceSubscription.unsubscribe();
   }
 
+  /**
+   * Opens the bottom sheet.
+   */
   openBottomSheet(): void {
     this.bottomSheet.open(ExploreBottomSheetComponent);
   }
 
+  /**
+   * Called on every text change on the search bar.
+   */
   modelChanged(newValue: string) {
     this.searchBarText = newValue;
     this.searchItem = this.searchPrefix + this.searchBarText;

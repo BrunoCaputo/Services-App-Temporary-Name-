@@ -9,6 +9,9 @@ import { AuthenticationService } from '../core/authentication.service';
 import { User } from './../utils/user';
 import { Service } from '../utils/service';
 
+/**
+ * Displays the services of the logged user.
+ */
 @Component({
   selector: 'app-service-list',
   templateUrl: './service-list.component.html',
@@ -25,10 +28,19 @@ export class ServiceListComponent implements OnInit {
   emptyMessage = 'Nenhum serviço adicionado';
   emptyIcon = 'work_outline';
 
+  /**
+   * Default constructor.
+   * @param auth - Instance of AuthenticationService.
+   * @param database - Instance of AngularFirestore.
+   */
   constructor(
     private auth: AuthenticationService,
     private database: AngularFirestore) {}
   
+  /**
+   * Invoked when the component is loaded. Creates the cards containing all the
+   * logged user's services.
+   */
   ngOnInit() {
     this.status = of(-1);
 
@@ -56,7 +68,6 @@ export class ServiceListComponent implements OnInit {
         return services;
       }));
     }));
-
 
     this.serviceSubscription = this.services.subscribe((services) => {
       this.status = of(services.length > 0 ? 1 : 0);

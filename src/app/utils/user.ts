@@ -1,3 +1,6 @@
+/**
+ * Represents a model for the user.
+ */
 export class User {
     constructor(
         public id?: String,

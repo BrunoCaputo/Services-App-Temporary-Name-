@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
+/**
+ * Unused.
+ */
 @Component({
   selector: 'app-service-container',
   templateUrl: './service-container.component.html',
@@ -7,6 +10,6 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ServiceContainerComponent implements OnInit {
   constructor() {}
-  
+
   ngOnInit() {}
 }

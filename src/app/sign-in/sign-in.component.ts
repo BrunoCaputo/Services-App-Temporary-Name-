@@ -6,6 +6,9 @@ import { LicenseComponent } from '../license/license.component'
 
 import { AuthenticationService } from '../core/authentication.service';
 
+/**
+ * Represents the login screen, using an already existing Gmail user.
+ */
 @Component({
   selector: 'app-sign-in',
   templateUrl: './sign-in.component.html',
@@ -18,6 +21,9 @@ export class SignInComponent implements OnInit {
 
   ngOnInit() {}
 
+  /**
+   * Opens the license window on button blick.
+   */
   openLicenseDialog() {
     this.dialog.open(LicenseComponent);
   }

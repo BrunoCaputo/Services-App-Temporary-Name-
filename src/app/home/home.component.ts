@@ -9,6 +9,10 @@ import { ConfirmAlertComponent } from './../confirm-alert/confirm-alert.componen
 
 import { AuthenticationService } from '../core/authentication.service';
 
+/**
+ * Provides the base interface for the home screen, where all other components
+ * are called.
+ */
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -17,23 +21,41 @@ import { AuthenticationService } from '../core/authentication.service';
 export class HomeComponent implements OnInit {
   isMobile: Boolean;
 
+  /**
+   * Default constructor.
+   * @param auth - Instance of AuthenticationService.
+   * @param dialog - Instance of MatDialog.
+   * @param deviceService - Instance of DeviceDetectorService.
+   */
   constructor(
     public auth: AuthenticationService,
     public dialog: MatDialog,
     private deviceService: DeviceDetectorService) {}
 
+  /**
+   * Called while the page is being loaded.
+   */
   ngOnInit() {
     this.isMobile = this.deviceService.isMobile();
   }
 
+  /**
+   * Opens the about dialog.
+   */
   openAboutDialog() {
     this.dialog.open(AboutComponent);
   }
 
+  /**
+   * Opens the license dialog.
+   */
   openLicenseDialog() {
     this.dialog.open(LicenseComponent);
   }
 
+  /**
+   * Opens the delete account dialog.
+   */
   openDeleteAccountDialog() {
     this.dialog.open(ConfirmAlertComponent, {
       role: 'alertdialog',

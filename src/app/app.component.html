@@ -1,7 +1,9 @@
+<!-->Decides whether the user should go to the login or application screen.<-->
 <div *ngIf="!(auth.loading | async) && !(isLoading | async); else loading">
     <router-outlet></router-outlet>
 </div>
 
+<!-->Shows the loading icon while the user has not made its decision.<-->
 <ng-template #loading>
     <app-loading></app-loading>
 </ng-template>
